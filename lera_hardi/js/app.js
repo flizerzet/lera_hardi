@@ -3019,5 +3019,13 @@
             loop: true
         });
     }
+    const isDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (isDarkTheme) {
+        document.documentElement.classList.remove("_light");
+        document.documentElement.classList.add("_dark");
+    } else {
+        document.documentElement.classList.remove("_dark");
+        document.documentElement.classList.add("_light");
+    }
     menuInit();
 })();

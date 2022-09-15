@@ -6,6 +6,10 @@ dist
 **/*.rar
 dist/
 node_modules/
+src/
+gulpfile.js
+package.json
+config/
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,windows,macos
