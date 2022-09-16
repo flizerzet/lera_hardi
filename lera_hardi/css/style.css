@@ -650,7 +650,7 @@ body._locked {
 }
 
 .preloader__gif {
-  width: 200px;
+  width: min(200px, 60vw);
   opacity: 0;
   -webkit-animation: show-preloader 3s forwards;
           animation: show-preloader 3s forwards;

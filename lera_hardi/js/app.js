@@ -3042,14 +3042,18 @@
         document.documentElement.classList.add("_light");
     }
     const preloader = document.querySelector(".preloader");
-    if (preloader) window.addEventListener("load", (() => {
-        setTimeout((() => {
-            preloader.style.opacity = "0";
-            preloader.style.visibility = "hidden";
-        }), 5e3);
-        setTimeout((() => {
-            preloader.style.display = "none";
-        }), 6e3);
-    }));
+    if (preloader) {
+        document.body.classList.add("_lock");
+        window.addEventListener("load", (() => {
+            setTimeout((() => {
+                preloader.style.opacity = "0";
+                preloader.style.visibility = "hidden";
+                document.body.classList.remove("_lock");
+            }), 5e3);
+            setTimeout((() => {
+                preloader.style.display = "none";
+            }), 6e3);
+        }));
+    }
     menuInit();
 })();
