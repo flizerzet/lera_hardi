@@ -638,19 +638,15 @@ body._locked {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 .preloader__gif {
-  width: min(200px, 60vw);
+  margin: auto;
+  width: 60vw;
+  max-width: 200px;
   opacity: 0;
   -webkit-animation: show-preloader 3s forwards;
           animation: show-preloader 3s forwards;
