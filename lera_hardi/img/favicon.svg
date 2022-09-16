@@ -1,0 +1,15 @@
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<style>
+	path {
+		fill: #000;
+	}
+	@media (prefers-color-scheme: dark) {
+    path {
+      fill: #fff;
+    }
+  }
+</style>
+<path d="M405.353 506.567H212.521V151.219H254.64V501.491H405.353V506.567Z"/>
+<path d="M587.02 836.533H544.902V481.185H587.02V644.645H751.942V481.185H794.06V836.533H751.942V649.722H587.02V836.533Z"/>
+<path d="M672.336 75.3497L279.061 887.574" stroke="black" stroke-width="0.1"/>
+</svg>
