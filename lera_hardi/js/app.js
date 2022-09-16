@@ -3043,12 +3043,12 @@
     }
     const preloader = document.querySelector(".preloader");
     if (preloader) {
-        document.body.classList.add("_lock");
+        document.body.classList.add("_locked");
         window.addEventListener("load", (() => {
             setTimeout((() => {
                 preloader.style.opacity = "0";
                 preloader.style.visibility = "hidden";
-                document.body.classList.remove("_lock");
+                document.body.classList.remove("_locked");
             }), 5e3);
             setTimeout((() => {
                 preloader.style.display = "none";
