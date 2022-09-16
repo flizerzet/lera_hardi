@@ -3013,10 +3013,24 @@
     const mainSlider = document.querySelector(".main-slider");
     if (mainSlider) {
         new core(mainSlider, {
-            slidesPerView: 4.5,
+            slidesPerView: 1.5,
             spaceBetween: 24,
             centeredSlides: true,
-            loop: true
+            loop: true,
+            breakpoints: {
+                992: {
+                    slidesPerView: 4.5
+                },
+                768: {
+                    slidesPerView: 3.7
+                },
+                576: {
+                    slidesPerView: 3
+                },
+                425: {
+                    slidesPerView: 2.5
+                }
+            }
         });
     }
     const isDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -3027,5 +3041,15 @@
         document.documentElement.classList.remove("_dark");
         document.documentElement.classList.add("_light");
     }
+    const preloader = document.querySelector(".preloader");
+    if (preloader) window.addEventListener("load", (() => {
+        setTimeout((() => {
+            preloader.style.opacity = "0";
+            preloader.style.visibility = "hidden";
+        }), 5e3);
+        setTimeout((() => {
+            preloader.style.display = "none";
+        }), 6e3);
+    }));
     menuInit();
 })();
