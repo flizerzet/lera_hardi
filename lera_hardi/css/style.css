@@ -522,6 +522,46 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -698,6 +738,26 @@ body._locked {
 
 /*---ОБЩИЕ КЛАССЫ---*/
 
+.title {
+  text-align: center;
+  font-family: "Fuggles";
+  font-weight: 400;
+}
+
+@supports (font-size: clamp( 3.125rem , 1.7321428571rem  +  6.9642857143vw , 8rem )) {
+  .title {
+    font-size: clamp( 3.125rem , 1.7321428571rem  +  6.9642857143vw , 8rem );
+  }
+}
+
+@supports not (font-size: clamp( 3.125rem , 1.7321428571rem  +  6.9642857143vw , 8rem )) {
+  .title {
+    font-size: calc(
+			3.125rem + 4.875 * (100vw - 20rem) / 70
+		);
+  }
+}
+
 /*---Минимальные стили для Swiper---*/
 
 .swiper {
@@ -729,6 +789,61 @@ body._locked {
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   right: -40px;
+}
+
+.ticker {
+  position: relative;
+  overflow: hidden;
+}
+
+.ticker__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.ticker__item {
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 34px;
+  white-space: nowrap;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  padding: 0 7.5px;
+  -webkit-animation: ticker 5s linear infinite;
+          animation: ticker 5s linear infinite;
+}
+
+._dark .ticker__item {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+._light .ticker__item {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+@-webkit-keyframes ticker {
+  0% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+  }
+
+  to {
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+  }
+
+  to {
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+  }
 }
 
 /*---Header---*/
@@ -970,7 +1085,6 @@ body._locked {
 }
 
 .main-slider {
-  margin-top: 15px;
   overflow: visible;
   margin-bottom: 45px;
 }
@@ -981,6 +1095,21 @@ body._locked {
   -o-transition: transform 0.2s;
   transition: transform 0.2s;
   transition: transform 0.2s, -webkit-transform 0.2s;
+  overflow: hidden;
+}
+
+.swiper-slide img {
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  -o-transition: transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+}
+
+.swiper-slide._animate img {
+  -webkit-transform: translateY(-100%);
+      -ms-transform: translateY(-100%);
+          transform: translateY(-100%);
 }
 
 .swiper-slide.swiper-slide-prev,
@@ -996,11 +1125,98 @@ body._locked {
           transform: translateY(50px);
 }
 
+.about__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 50px;
+}
+
+.about__info p {
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+}
+
+.about__info p:not(:last-child) {
+  margin-bottom: 40px;
+}
+
+.about__images {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 33.3333333333%;
+          flex: 0 0 33.3333333333%;
+  position: relative;
+  text-align: right;
+}
+
+.about__images img:nth-child(1) {
+  width: 86.4583333333%;
+  height: 393px;
+  min-height: 393px;
+  max-height: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.about__images img:nth-child(2) {
+  position: absolute;
+  left: -30px;
+  bottom: 0;
+  width: 223px;
+  height: 212px;
+}
+
+.about-footer {
+  padding-bottom: 20px;
+}
+
+@supports (margin-top: clamp( 1.875rem , 1.25rem  +  3.125vw , 4.0625rem )) {
+  .about-footer {
+    margin-top: clamp( 1.875rem , 1.25rem  +  3.125vw , 4.0625rem );
+  }
+}
+
+@supports not (margin-top: clamp( 1.875rem , 1.25rem  +  3.125vw , 4.0625rem )) {
+  .about-footer {
+    margin-top: calc(
+			1.875rem + 2.1875 * (100vw - 20rem) / 70
+		);
+  }
+}
+
 /*---Footer---*/
 
 .footer {
   position: relative;
-  padding: 50px 0;
+}
+
+@supports (padding-top: clamp( 1.25rem , 0.7142857143rem  +  2.6785714286vw , 3.125rem )) {
+  .footer {
+    padding-top: clamp( 1.25rem , 0.7142857143rem  +  2.6785714286vw , 3.125rem );
+  }
+}
+
+@supports not (padding-top: clamp( 1.25rem , 0.7142857143rem  +  2.6785714286vw , 3.125rem )) {
+  .footer {
+    padding-top: calc(
+			1.25rem + 1.875 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (padding-bottom: clamp( 1.25rem , 0.7142857143rem  +  2.6785714286vw , 3.125rem )) {
+  .footer {
+    padding-bottom: clamp( 1.25rem , 0.7142857143rem  +  2.6785714286vw , 3.125rem );
+  }
+}
+
+@supports not (padding-bottom: clamp( 1.25rem , 0.7142857143rem  +  2.6785714286vw , 3.125rem )) {
+  .footer {
+    padding-bottom: calc(
+			1.25rem + 1.875 * (100vw - 20rem) / 70
+		);
+  }
 }
 
 .footer__container {
@@ -1018,14 +1234,11 @@ body._locked {
   }
 
   .header__socials {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: end;
-        -ms-flex-align: end;
-            align-items: flex-end;
-    gap: 20px;
+    gap: 12px;
+  }
+
+  .header__social {
+    text-decoration: underline;
   }
 
   .preloader__gif {

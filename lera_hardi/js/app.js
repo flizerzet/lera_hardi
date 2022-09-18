@@ -3032,6 +3032,17 @@
                 }
             }
         });
+        const images = mainSlider.querySelectorAll(".swiper-slide");
+        images.forEach((image => {
+            image.classList.add("_animate");
+        }));
+        for (let i = 0; i < images.length; i++) {
+            const image = images[i];
+            const time = 5e3 + 100 * i;
+            setTimeout((() => {
+                image.classList.remove("_animate");
+            }), time);
+        }
     }
     const isDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
     if (isDarkTheme) {
