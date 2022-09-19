@@ -562,6 +562,46 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -1165,6 +1205,7 @@ body._locked {
   bottom: 0;
   width: 223px;
   height: 212px;
+  border: 1px solid #000000;
 }
 
 .about-footer {
@@ -1226,6 +1267,12 @@ body._locked {
 .footer__title {
   font-weight: 400;
   font-size: 36px;
+}
+
+@media (max-width: 62em) {
+  .about__images img:nth-child(2) {
+    bottom: 15%;
+  }
 }
 
 @media (max-width: 36em) {

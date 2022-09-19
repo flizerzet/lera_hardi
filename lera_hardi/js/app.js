@@ -3010,40 +3010,42 @@
     }));
     Swiper.use([ Resize, Observer ]);
     const core = Swiper;
-    const mainSlider = document.querySelector(".main-slider");
-    if (mainSlider) {
-        new core(mainSlider, {
-            slidesPerView: 1.5,
-            spaceBetween: 24,
-            centeredSlides: true,
-            loop: true,
-            breakpoints: {
-                992: {
-                    slidesPerView: 4.5
-                },
-                768: {
-                    slidesPerView: 3.7
-                },
-                576: {
-                    slidesPerView: 3
-                },
-                425: {
-                    slidesPerView: 2.5
+    window.addEventListener("load", (() => {
+        const mainSlider = document.querySelector(".main-slider");
+        if (mainSlider) {
+            new core(mainSlider, {
+                slidesPerView: 1.5,
+                spaceBetween: 24,
+                centeredSlides: true,
+                loop: true,
+                breakpoints: {
+                    992: {
+                        slidesPerView: 4.5
+                    },
+                    768: {
+                        slidesPerView: 3.7
+                    },
+                    576: {
+                        slidesPerView: 3
+                    },
+                    425: {
+                        slidesPerView: 2.5
+                    }
                 }
+            });
+            const images = mainSlider.querySelectorAll(".swiper-slide");
+            images.forEach((image => {
+                image.classList.add("_animate");
+            }));
+            for (let i = 0; i < images.length; i++) {
+                const image = images[i];
+                const time = 5e3 + 100 * i;
+                setTimeout((() => {
+                    image.classList.remove("_animate");
+                }), time);
             }
-        });
-        const images = mainSlider.querySelectorAll(".swiper-slide");
-        images.forEach((image => {
-            image.classList.add("_animate");
-        }));
-        for (let i = 0; i < images.length; i++) {
-            const image = images[i];
-            const time = 5e3 + 100 * i;
-            setTimeout((() => {
-                image.classList.remove("_animate");
-            }), time);
         }
-    }
+    }));
     const isDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
     if (isDarkTheme) {
         document.documentElement.classList.remove("_light");
