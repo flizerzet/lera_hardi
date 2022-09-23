@@ -682,6 +682,86 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -1346,6 +1426,108 @@ body._locked {
   }
 }
 
+@supports (margin-top: clamp( 1.875rem , 1.3392857143rem  +  2.6785714286vw , 3.75rem )) {
+  .gallery-video {
+    margin-top: clamp( 1.875rem , 1.3392857143rem  +  2.6785714286vw , 3.75rem );
+  }
+}
+
+@supports not (margin-top: clamp( 1.875rem , 1.3392857143rem  +  2.6785714286vw , 3.75rem )) {
+  .gallery-video {
+    margin-top: calc(
+			1.875rem + 1.875 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (margin-top: clamp( 1.25rem , 1.0714285714rem  +  0.8928571429vw , 1.875rem )) {
+  .gallery-video {
+    margin-top: clamp( 1.25rem , 1.0714285714rem  +  0.8928571429vw , 1.875rem );
+  }
+}
+
+@supports not (margin-top: clamp( 1.25rem , 1.0714285714rem  +  0.8928571429vw , 1.875rem )) {
+  .gallery-video {
+    margin-top: calc(
+			1.25rem + 0.625 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.gallery-video__item {
+  padding: 45px 90px;
+}
+
+@supports (padding-top: clamp( 0.625rem , 0.0000000625rem  +  3.125vw , 2.8125rem )) {
+  .gallery-video__item {
+    padding-top: clamp( 0.625rem , 0.0000000625rem  +  3.125vw , 2.8125rem );
+  }
+}
+
+@supports not (padding-top: clamp( 0.625rem , 0.0000000625rem  +  3.125vw , 2.8125rem )) {
+  .gallery-video__item {
+    padding-top: calc(
+			0.625rem + 2.1875 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (padding-bottom: clamp( 0.625rem , 0.0000000625rem  +  3.125vw , 2.8125rem )) {
+  .gallery-video__item {
+    padding-bottom: clamp( 0.625rem , 0.0000000625rem  +  3.125vw , 2.8125rem );
+  }
+}
+
+@supports not (padding-bottom: clamp( 0.625rem , 0.0000000625rem  +  3.125vw , 2.8125rem )) {
+  .gallery-video__item {
+    padding-bottom: calc(
+			0.625rem + 2.1875 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (padding-left: clamp( 1.875rem , 0.8035714286rem  +  5.3571428571vw , 5.625rem )) {
+  .gallery-video__item {
+    padding-left: clamp( 1.875rem , 0.8035714286rem  +  5.3571428571vw , 5.625rem );
+  }
+}
+
+@supports not (padding-left: clamp( 1.875rem , 0.8035714286rem  +  5.3571428571vw , 5.625rem )) {
+  .gallery-video__item {
+    padding-left: calc(
+			1.875rem + 3.75 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (padding-right: clamp( 1.875rem , 0.8035714286rem  +  5.3571428571vw , 5.625rem )) {
+  .gallery-video__item {
+    padding-right: clamp( 1.875rem , 0.8035714286rem  +  5.3571428571vw , 5.625rem );
+  }
+}
+
+@supports not (padding-right: clamp( 1.875rem , 0.8035714286rem  +  5.3571428571vw , 5.625rem )) {
+  .gallery-video__item {
+    padding-right: calc(
+			1.875rem + 3.75 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+._dark .gallery-video__item {
+  border: 1px solid #fff;
+}
+
+._white .gallery-video__item {
+  border: 1px solid #000;
+}
+
+.video {
+  width: 100%;
+  aspect-ratio: 31/12;
+  background-color: #adadad;
+}
+
 .box-gallery {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1362,6 +1544,9 @@ body._locked {
   display: grid;
   gap: 50px;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
 }
 
 .box-gallery__item {
