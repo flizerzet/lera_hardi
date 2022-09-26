@@ -462,6 +462,39 @@
                 }));
             }
         }
+        function modalsInit() {
+            const modalBtns = document.querySelectorAll("._modal-open");
+            const modals = document.querySelectorAll("._modal");
+            function openModal(elem) {
+                elem.classList.add("_active");
+                body.classList.add("_locked");
+            }
+            function closeModal(e) {
+                if (e.target.classList.contains("modal-close") || e.target.closest(".modal-close") || e.target.classList.contains("modal-bg")) {
+                    e.target.closest("._modal").classList.remove("_active");
+                    body.classList.remove("_locked");
+                }
+            }
+            modalBtns.forEach((btn => {
+                btn.addEventListener("click", (e => {
+                    let data = e.target.dataset.modalOpen;
+                    modals.forEach((modal => {
+                        if (modal.dataset.modal == data || modal.dataset.modal == e.target.closest("._modal-open").dataset.modalOpen) openModal(modal);
+                    }));
+                }));
+            }));
+            modals.forEach((modal => {
+                modal.addEventListener("click", (e => closeModal(e)));
+            }));
+            window.addEventListener("keydown", (e => {
+                modals.forEach((modal => {
+                    if ("Escape" === e.key && modal.classList.contains("_active")) {
+                        modal.classList.remove("_active");
+                        body.classList.remove("_locked");
+                    }
+                }));
+            }));
+        }
         function daInit() {
             "use strict";
             (function() {
@@ -3507,6 +3540,153 @@
         }));
         Swiper.use([ Resize, Observer ]);
         const core = Swiper;
+        function create_element_if_not_defined_createElementIfNotDefined(swiper, originalParams, params, checkProps) {
+            const document = ssr_window_esm_getDocument();
+            if (swiper.params.createElements) Object.keys(checkProps).forEach((key => {
+                if (!params[key] && true === params.auto) {
+                    let element = swiper.$el.children(`.${checkProps[key]}`)[0];
+                    if (!element) {
+                        element = document.createElement("div");
+                        element.className = checkProps[key];
+                        swiper.$el.append(element);
+                    }
+                    params[key] = element;
+                    originalParams[key] = element;
+                }
+            }));
+            return params;
+        }
+        function Navigation({swiper, extendParams, on, emit}) {
+            extendParams({
+                navigation: {
+                    nextEl: null,
+                    prevEl: null,
+                    hideOnClick: false,
+                    disabledClass: "swiper-button-disabled",
+                    hiddenClass: "swiper-button-hidden",
+                    lockClass: "swiper-button-lock",
+                    navigationDisabledClass: "swiper-navigation-disabled"
+                }
+            });
+            swiper.navigation = {
+                nextEl: null,
+                $nextEl: null,
+                prevEl: null,
+                $prevEl: null
+            };
+            function getEl(el) {
+                let $el;
+                if (el) {
+                    $el = dom(el);
+                    if (swiper.params.uniqueNavElements && "string" === typeof el && $el.length > 1 && 1 === swiper.$el.find(el).length) $el = swiper.$el.find(el);
+                }
+                return $el;
+            }
+            function toggleEl($el, disabled) {
+                const params = swiper.params.navigation;
+                if ($el && $el.length > 0) {
+                    $el[disabled ? "addClass" : "removeClass"](params.disabledClass);
+                    if ($el[0] && "BUTTON" === $el[0].tagName) $el[0].disabled = disabled;
+                    if (swiper.params.watchOverflow && swiper.enabled) $el[swiper.isLocked ? "addClass" : "removeClass"](params.lockClass);
+                }
+            }
+            function update() {
+                if (swiper.params.loop) return;
+                const {$nextEl, $prevEl} = swiper.navigation;
+                toggleEl($prevEl, swiper.isBeginning && !swiper.params.rewind);
+                toggleEl($nextEl, swiper.isEnd && !swiper.params.rewind);
+            }
+            function onPrevClick(e) {
+                e.preventDefault();
+                if (swiper.isBeginning && !swiper.params.loop && !swiper.params.rewind) return;
+                swiper.slidePrev();
+                emit("navigationPrev");
+            }
+            function onNextClick(e) {
+                e.preventDefault();
+                if (swiper.isEnd && !swiper.params.loop && !swiper.params.rewind) return;
+                swiper.slideNext();
+                emit("navigationNext");
+            }
+            function init() {
+                const params = swiper.params.navigation;
+                swiper.params.navigation = create_element_if_not_defined_createElementIfNotDefined(swiper, swiper.originalParams.navigation, swiper.params.navigation, {
+                    nextEl: "swiper-button-next",
+                    prevEl: "swiper-button-prev"
+                });
+                if (!(params.nextEl || params.prevEl)) return;
+                const $nextEl = getEl(params.nextEl);
+                const $prevEl = getEl(params.prevEl);
+                if ($nextEl && $nextEl.length > 0) $nextEl.on("click", onNextClick);
+                if ($prevEl && $prevEl.length > 0) $prevEl.on("click", onPrevClick);
+                Object.assign(swiper.navigation, {
+                    $nextEl,
+                    nextEl: $nextEl && $nextEl[0],
+                    $prevEl,
+                    prevEl: $prevEl && $prevEl[0]
+                });
+                if (!swiper.enabled) {
+                    if ($nextEl) $nextEl.addClass(params.lockClass);
+                    if ($prevEl) $prevEl.addClass(params.lockClass);
+                }
+            }
+            function destroy() {
+                const {$nextEl, $prevEl} = swiper.navigation;
+                if ($nextEl && $nextEl.length) {
+                    $nextEl.off("click", onNextClick);
+                    $nextEl.removeClass(swiper.params.navigation.disabledClass);
+                }
+                if ($prevEl && $prevEl.length) {
+                    $prevEl.off("click", onPrevClick);
+                    $prevEl.removeClass(swiper.params.navigation.disabledClass);
+                }
+            }
+            on("init", (() => {
+                if (false === swiper.params.navigation.enabled) disable(); else {
+                    init();
+                    update();
+                }
+            }));
+            on("toEdge fromEdge lock unlock", (() => {
+                update();
+            }));
+            on("destroy", (() => {
+                destroy();
+            }));
+            on("enable disable", (() => {
+                const {$nextEl, $prevEl} = swiper.navigation;
+                if ($nextEl) $nextEl[swiper.enabled ? "removeClass" : "addClass"](swiper.params.navigation.lockClass);
+                if ($prevEl) $prevEl[swiper.enabled ? "removeClass" : "addClass"](swiper.params.navigation.lockClass);
+            }));
+            on("click", ((_s, e) => {
+                const {$nextEl, $prevEl} = swiper.navigation;
+                const targetEl = e.target;
+                if (swiper.params.navigation.hideOnClick && !dom(targetEl).is($prevEl) && !dom(targetEl).is($nextEl)) {
+                    if (swiper.pagination && swiper.params.pagination && swiper.params.pagination.clickable && (swiper.pagination.el === targetEl || swiper.pagination.el.contains(targetEl))) return;
+                    let isHidden;
+                    if ($nextEl) isHidden = $nextEl.hasClass(swiper.params.navigation.hiddenClass); else if ($prevEl) isHidden = $prevEl.hasClass(swiper.params.navigation.hiddenClass);
+                    if (true === isHidden) emit("navigationShow"); else emit("navigationHide");
+                    if ($nextEl) $nextEl.toggleClass(swiper.params.navigation.hiddenClass);
+                    if ($prevEl) $prevEl.toggleClass(swiper.params.navigation.hiddenClass);
+                }
+            }));
+            const enable = () => {
+                swiper.$el.removeClass(swiper.params.navigation.navigationDisabledClass);
+                init();
+                update();
+            };
+            const disable = () => {
+                swiper.$el.addClass(swiper.params.navigation.navigationDisabledClass);
+                destroy();
+            };
+            Object.assign(swiper.navigation, {
+                enable,
+                disable,
+                update,
+                init,
+                destroy
+            });
+        }
         var aos = __webpack_require__(711);
         aos.init();
         window.addEventListener("load", (() => {
@@ -3543,6 +3723,55 @@
                         image.classList.remove("_animate");
                     }), time);
                 }
+            }
+            const locationsSlider = document.querySelector(".slider-locations");
+            const modal = document.querySelector(".modal-content");
+            const renderSlider = slide => {
+                const paths = [];
+                for (let i = 0; i < slide.dataset.photos; i++) paths.push(`img/locations/${slide.dataset.location}/images/${i + 1}.png`);
+                modal.innerHTML = `\n\t\t\t\t<div class="swiper modal-slider">\n\t\t\t\t\t<div class="swiper-wrapper">\n\t\t\t\t\t\t${paths.map((path => `\n\t\t\t\t\t\t\t\t<div class="swiper-slide" >\n\t\t\t\t\t\t\t\t\t<img src="${path}" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t`)).join("")}\n\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="location-slider-arrow location-slider-arrow-next">\n\t\t\t\t\t<svg width="34" height="66" viewBox="0 0 34 66" fill="none" xmlns="http://www.w3.org/2000/svg">\n\t\t\t\t\t\t<path d="M1 64.5L32.5 32.5L1 1" stroke="white" stroke-width="2"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<div class="location-slider-arrow location-slider-arrow-prev">\n\t\t\t\t\t<svg width="35" height="66" viewBox="0 0 35 66" fill="none" xmlns="http://www.w3.org/2000/svg">\n\t\t\t\t\t\t<path d="M33.5 1L2 33L33.5 64.5" stroke="white" stroke-width="2"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<div class="modal-slider-text">${slide.dataset.text}</div>\n\t\t\t`;
+                new core(".modal-slider", {
+                    modules: [ Navigation ],
+                    navigation: {
+                        nextEl: ".location-slider-arrow-next",
+                        prevEl: ".location-slider-arrow-prev"
+                    }
+                });
+            };
+            if (locationsSlider) {
+                const locationsSwiper = new core(locationsSlider, {
+                    slidesPerView: 1.5,
+                    spaceBetween: 24,
+                    centeredSlides: true,
+                    loop: true,
+                    breakpoints: {
+                        992: {
+                            slidesPerView: 4.5
+                        },
+                        768: {
+                            slidesPerView: 3.7
+                        },
+                        576: {
+                            slidesPerView: 3
+                        },
+                        425: {
+                            slidesPerView: 2.5
+                        }
+                    },
+                    on: {
+                        init: function() {
+                            modalsInit();
+                            renderSlider(locationsSlider.querySelector(".swiper-slide-active"));
+                        }
+                    }
+                });
+                locationsSwiper.on("slideChangeTransitionEnd", (() => {
+                    locationsSlider.querySelectorAll(".swiper-slide").forEach((slide => slide.classList.remove("_modal-open")));
+                    const currentSlide = locationsSlider.querySelector(".swiper-slide-active");
+                    currentSlide.classList.add("_modal-open");
+                    modalsInit();
+                    renderSlider(locationsSlider.querySelector(".swiper-slide-active"));
+                }));
             }
         }));
         const isDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;

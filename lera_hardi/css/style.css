@@ -762,6 +762,86 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -986,6 +1066,59 @@ body._locked {
   }
 }
 
+/*---Модальные окна---*/
+
+._modal {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+._modal._active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+}
+
+.modal-body {
+  padding: 24px;
+  width: 800px;
+  margin: auto;
+  max-height: 90%;
+  border-radius: 16px;
+  position: relative;
+  z-index: 10;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.modal-close {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  cursor: pointer;
+  font-size: 30px;
+}
+
 /*---Минимальные стили для Swiper---*/
 
 .swiper {
@@ -1047,7 +1180,7 @@ body._locked {
 }
 
 ._light .ticker__item {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(0, 0, 0, 0.2);
 }
 
 @-webkit-keyframes ticker {
@@ -1317,7 +1450,7 @@ body._locked {
   margin-bottom: 45px;
 }
 
-.swiper-slide {
+.main-slider .swiper-slide {
   -webkit-transition: -webkit-transform 0.2s;
   transition: -webkit-transform 0.2s;
   -o-transition: transform 0.2s;
@@ -1326,7 +1459,7 @@ body._locked {
   overflow: hidden;
 }
 
-.swiper-slide img {
+.main-slider .swiper-slide img {
   -webkit-transition: -webkit-transform 1s;
   transition: -webkit-transform 1s;
   -o-transition: transform 1s;
@@ -1334,20 +1467,20 @@ body._locked {
   transition: transform 1s, -webkit-transform 1s;
 }
 
-.swiper-slide._animate img {
+.main-slider .swiper-slide._animate img {
   -webkit-transform: translateY(-100%);
       -ms-transform: translateY(-100%);
           transform: translateY(-100%);
 }
 
-.swiper-slide.swiper-slide-prev,
-.swiper-slide.swiper-slide-next {
+.main-slider .swiper-slide.swiper-slide-prev,
+.main-slider .swiper-slide.swiper-slide-next {
   -webkit-transform: translateY(25px);
       -ms-transform: translateY(25px);
           transform: translateY(25px);
 }
 
-.swiper-slide.swiper-slide-active {
+.main-slider .swiper-slide.swiper-slide-active {
   -webkit-transform: translateY(50px);
       -ms-transform: translateY(50px);
           transform: translateY(50px);
@@ -1566,6 +1699,72 @@ body._locked {
 }
 
 .gallery-footer #go-up {
+  cursor: pointer;
+}
+
+.location-ticker {
+  margin-top: 50px;
+}
+
+.modal-content {
+  position: relative;
+}
+
+.modal-slider-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 50px;
+  top: auto;
+  text-align: center;
+  width: 100%;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.location-slider-arrow {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.location-slider-arrow-prev {
+  left: 30px;
+}
+
+.location-slider-arrow-next {
+  right: 30px;
+}
+
+.slider-locations {
+  margin-top: 60px;
+}
+
+.slider-locations .swiper-slide {
+  opacity: 0.6;
+  -webkit-transform: scale(0.9);
+      -ms-transform: scale(0.9);
+          transform: scale(0.9);
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.slider-locations .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.slider-locations .swiper-slide-active {
+  opacity: 1;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
   cursor: pointer;
 }
 
