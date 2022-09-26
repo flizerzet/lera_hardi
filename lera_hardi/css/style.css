@@ -1100,11 +1100,9 @@ body._locked {
 }
 
 .modal-body {
-  padding: 24px;
   width: 800px;
   margin: auto;
   max-height: 90%;
-  border-radius: 16px;
   position: relative;
   z-index: 10;
   background-color: var(--bg-color);
@@ -1708,6 +1706,7 @@ body._locked {
 
 .modal-content {
   position: relative;
+  color: #fff;
 }
 
 .modal-slider-text {
