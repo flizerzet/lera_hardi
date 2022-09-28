@@ -842,6 +842,46 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -1100,21 +1140,20 @@ body._locked {
 }
 
 .modal-body {
-  width: 800px;
+  width: min(800px, 100%);
   margin: auto;
   max-height: 90%;
   position: relative;
   z-index: 10;
-  background-color: var(--bg-color);
-  color: var(--text-color);
 }
 
 .modal-close {
   position: absolute;
-  top: -16px;
-  right: -16px;
+  top: -32px;
+  right: -32px;
   cursor: pointer;
   font-size: 30px;
+  color: #fff;
 }
 
 /*---Минимальные стили для Swiper---*/
@@ -1701,7 +1740,7 @@ body._locked {
 }
 
 .location-ticker {
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 .modal-content {
@@ -1713,12 +1752,39 @@ body._locked {
   position: absolute;
   left: 0;
   top: 0;
-  bottom: 50px;
   top: auto;
   text-align: center;
   width: 100%;
   font-weight: 400;
   font-size: 20px;
+}
+
+@supports (font-size: clamp( 0.875rem , 0.7678571429rem  +  0.5357142857vw , 1.25rem )) {
+  .modal-slider-text {
+    font-size: clamp( 0.875rem , 0.7678571429rem  +  0.5357142857vw , 1.25rem );
+  }
+}
+
+@supports not (font-size: clamp( 0.875rem , 0.7678571429rem  +  0.5357142857vw , 1.25rem )) {
+  .modal-slider-text {
+    font-size: calc(
+			0.875rem + 0.375 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (bottom: clamp( 0.625rem , -0.0892857143rem  +  3.5714285714vw , 3.125rem )) {
+  .modal-slider-text {
+    bottom: clamp( 0.625rem , -0.0892857143rem  +  3.5714285714vw , 3.125rem );
+  }
+}
+
+@supports not (bottom: clamp( 0.625rem , -0.0892857143rem  +  3.5714285714vw , 3.125rem )) {
+  .modal-slider-text {
+    bottom: calc(
+			0.625rem + 2.5 * (100vw - 20rem) / 70
+		);
+  }
 }
 
 .location-slider-arrow {
@@ -1728,18 +1794,47 @@ body._locked {
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   cursor: pointer;
+  -webkit-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  transition: opacity 0.2s;
 }
 
-.location-slider-arrow-prev {
-  left: 30px;
+.location-slider-arrow.swiper-button-disabled {
+  opacity: 0;
+  visibility: hidden;
 }
 
-.location-slider-arrow-next {
-  right: 30px;
+@supports (left: clamp( 0.625rem , 0.2678571429rem  +  1.7857142857vw , 1.875rem )) {
+  .location-slider-arrow-prev {
+    left: clamp( 0.625rem , 0.2678571429rem  +  1.7857142857vw , 1.875rem );
+  }
+}
+
+@supports not (left: clamp( 0.625rem , 0.2678571429rem  +  1.7857142857vw , 1.875rem )) {
+  .location-slider-arrow-prev {
+    left: calc(
+			0.625rem + 1.25 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (right: clamp( 0.625rem , 0.2678571429rem  +  1.7857142857vw , 1.875rem )) {
+  .location-slider-arrow-next {
+    right: clamp( 0.625rem , 0.2678571429rem  +  1.7857142857vw , 1.875rem );
+  }
+}
+
+@supports not (right: clamp( 0.625rem , 0.2678571429rem  +  1.7857142857vw , 1.875rem )) {
+  .location-slider-arrow-next {
+    right: calc(
+			0.625rem + 1.25 * (100vw - 20rem) / 70
+		);
+  }
 }
 
 .slider-locations {
   margin-top: 60px;
+  position: relative;
 }
 
 .slider-locations .swiper-slide {
@@ -1750,6 +1845,8 @@ body._locked {
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
+  position: relative;
+  z-index: 10;
 }
 
 .slider-locations .swiper-slide img {
@@ -1765,6 +1862,115 @@ body._locked {
       -ms-transform: scale(1);
           transform: scale(1);
   cursor: pointer;
+}
+
+.slider-locations .slider-locations__arrows .slider-locations__arrow {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 100px;
+  height: 100%;
+  background-color: var(--bg-color);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.slider-locations .slider-locations__arrows .slider-locations__prev {
+  left: 0px;
+}
+
+.slider-locations .slider-locations__arrows .slider-locations__next {
+  right: 0px;
+}
+
+.location-preloader {
+  z-index: 10;
+  position: absolute;
+  inset: 0;
+  background-color: #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.square-10 {
+  width: 85px;
+  height: 50px;
+  --g1: conic-gradient(from 90deg at left 3px top 3px, #0000 90deg, #fff 0);
+  --g2: conic-gradient(from -90deg at bottom 3px right 3px, #0000 90deg, #fff 0);
+  background: var(--g1), var(--g1), var(--g1), var(--g2), var(--g2), var(--g2);
+  background-position: left, center, right;
+  background-repeat: no-repeat;
+  -webkit-animation: s10 1s infinite alternate;
+          animation: s10 1s infinite alternate;
+}
+
+@-webkit-keyframes s10 {
+  0%, 2% {
+    background-size: 25px 50%, 25px 50%, 25px 50%;
+  }
+
+  20% {
+    background-size: 25px 25%, 25px 50%, 25px 50%;
+  }
+
+  40% {
+    background-size: 25px 100%, 25px 25%, 25px 50%;
+  }
+
+  60% {
+    background-size: 25px 50%, 25px 100%, 25px 25%;
+  }
+
+  80% {
+    background-size: 25px 50%, 25px 50%, 25px 100%;
+  }
+
+  98%, 100% {
+    background-size: 25px 50%, 25px 50%, 25px 50%;
+  }
+}
+
+@keyframes s10 {
+  0%, 2% {
+    background-size: 25px 50%, 25px 50%, 25px 50%;
+  }
+
+  20% {
+    background-size: 25px 25%, 25px 50%, 25px 50%;
+  }
+
+  40% {
+    background-size: 25px 100%, 25px 25%, 25px 50%;
+  }
+
+  60% {
+    background-size: 25px 50%, 25px 100%, 25px 25%;
+  }
+
+  80% {
+    background-size: 25px 50%, 25px 50%, 25px 100%;
+  }
+
+  98%, 100% {
+    background-size: 25px 50%, 25px 50%, 25px 50%;
+  }
 }
 
 [data-aos=fade-left] {
@@ -1827,6 +2033,10 @@ body._locked {
 }
 
 @media (max-width: 48em) {
+  .modal-close {
+    right: 0;
+  }
+
   .about__content {
     -webkit-box-orient: vertical;
     -webkit-box-direction: reverse;
@@ -1838,6 +2048,10 @@ body._locked {
     width: 100%;
     -o-object-position: 0 -24vw;
        object-position: 0 -24vw;
+  }
+
+  .slider-locations .slider-locations__arrows {
+    display: none;
   }
 }
 
@@ -1868,6 +2082,10 @@ body._locked {
     width: 197px;
     height: 188px;
     left: 5%;
+  }
+
+  .location-slider-arrow {
+    width: 30px;
   }
 }
 

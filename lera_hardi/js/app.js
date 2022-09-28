@@ -3729,7 +3729,7 @@
             const renderSlider = slide => {
                 const paths = [];
                 for (let i = 0; i < slide.dataset.photos; i++) paths.push(`img/locations/${slide.dataset.location}/images/${i + 1}.png`);
-                modal.innerHTML = `\n\t\t\t\t<div class="swiper modal-slider">\n\t\t\t\t\t<div class="swiper-wrapper">\n\t\t\t\t\t\t${paths.map((path => `\n\t\t\t\t\t\t\t\t<div class="swiper-slide" >\n\t\t\t\t\t\t\t\t\t<img src="${path}" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t`)).join("")}\n\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="location-slider-arrow location-slider-arrow-next">\n\t\t\t\t\t<svg width="34" height="66" viewBox="0 0 34 66" fill="none" xmlns="http://www.w3.org/2000/svg">\n\t\t\t\t\t\t<path d="M1 64.5L32.5 32.5L1 1" stroke="white" stroke-width="2"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<div class="location-slider-arrow location-slider-arrow-prev">\n\t\t\t\t\t<svg width="35" height="66" viewBox="0 0 35 66" fill="none" xmlns="http://www.w3.org/2000/svg">\n\t\t\t\t\t\t<path d="M33.5 1L2 33L33.5 64.5" stroke="white" stroke-width="2"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<div class="modal-slider-text">${slide.dataset.text}</div>\n\t\t\t`;
+                modal.innerHTML = `\n\t\t\t\t<div class="swiper modal-slider">\n\t\t\t\t\t<div class="swiper-wrapper">\n\t\t\t\t\t\t${paths.map((path => `\n\t\t\t\t\t\t\t\t<div class="swiper-slide" >\n\t\t\t\t\t\t\t\t\t<img src="${path}" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t`)).join("")}\n\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="location-slider-arrow location-slider-arrow-next">\n\t\t\t\t\t<svg viewBox="0 0 34 66" fill="none" xmlns="http://www.w3.org/2000/svg">\n\t\t\t\t\t\t<path d="M1 64.5L32.5 32.5L1 1" stroke="#fff" stroke-width="2"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<div class="location-slider-arrow location-slider-arrow-prev">\n\t\t\t\t\t<svg viewBox="0 0 35 66" fill="none" xmlns="http://www.w3.org/2000/svg">\n\t\t\t\t\t\t<path d="M33.5 1L2 33L33.5 64.5" stroke="#fff" stroke-width="2"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<div class="modal-slider-text">${slide.dataset.text}</div>\n\t\t\t`;
                 new core(".modal-slider", {
                     modules: [ Navigation ],
                     navigation: {
@@ -3744,6 +3744,11 @@
                     spaceBetween: 24,
                     centeredSlides: true,
                     loop: true,
+                    modules: [ Navigation ],
+                    navigation: {
+                        nextEl: ".slider-locations__next",
+                        prevEl: ".slider-locations__prev"
+                    },
                     breakpoints: {
                         992: {
                             slidesPerView: 4.5
@@ -3755,13 +3760,14 @@
                             slidesPerView: 3
                         },
                         425: {
-                            slidesPerView: 2.5
+                            slidesPerView: 1.7
                         }
                     },
                     on: {
                         init: function() {
                             modalsInit();
                             renderSlider(locationsSlider.querySelector(".swiper-slide-active"));
+                            document.querySelector(".location-preloader").style.display = "none";
                         }
                     }
                 });
