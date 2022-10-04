@@ -3809,6 +3809,11 @@
                 behavior: "smooth"
             });
         }));
+        const roundText = document.getElementById("round-text");
+        if (roundText) {
+            roundText.innerHTML = roundText.innerText.split("").map(((char, i) => `<span style="transform:rotate(${7.85 * i}deg)">${char}</span>`)).join("");
+            console.log(roundText.innerHTML);
+        }
         menuInit();
         daInit();
     })();

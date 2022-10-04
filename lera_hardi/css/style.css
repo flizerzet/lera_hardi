@@ -882,6 +882,206 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -1797,6 +1997,7 @@ body._locked {
   -webkit-transition: opacity 0.2s;
   -o-transition: opacity 0.2s;
   transition: opacity 0.2s;
+  width: 30px;
 }
 
 .location-slider-arrow.swiper-button-disabled {
@@ -1833,6 +2034,10 @@ body._locked {
 }
 
 .slider-locations {
+  display: -ms-grid;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   margin-top: 60px;
   position: relative;
 }
@@ -1872,7 +2077,6 @@ body._locked {
           transform: translateY(-50%);
   width: 100px;
   height: 100%;
-  background-color: var(--bg-color);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1894,7 +2098,7 @@ body._locked {
 }
 
 .location-preloader {
-  z-index: 10;
+  z-index: 15;
   position: absolute;
   inset: 0;
   background-color: #000;
@@ -1971,6 +2175,334 @@ body._locked {
   98%, 100% {
     background-size: 25px 50%, 25px 50%, 25px 50%;
   }
+}
+
+.price__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  gap: 30px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.item-price {
+  max-width: 390px;
+  position: relative;
+  padding: 50px 15px 10px;
+  text-align: center;
+}
+
+.item-price img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  z-index: 1;
+}
+
+.item-price:nth-child(1):before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 110%;
+  position: absolute;
+  top: -5%;
+  left: -10%;
+  border: 1px solid var(--text-color);
+}
+
+.item-price:nth-child(2) {
+  -webkit-transform: translateY(50px);
+      -ms-transform: translateY(50px);
+          transform: translateY(50px);
+  margin-bottom: 50px;
+}
+
+.item-price:nth-child(2):before {
+  content: "";
+  display: block;
+  width: 110%;
+  height: 110%;
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  border: 1px solid var(--text-color);
+}
+
+.item-price:nth-child(3):before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 110%;
+  position: absolute;
+  top: -5%;
+  right: -10%;
+  border: 1px solid var(--text-color);
+}
+
+.item-price__text {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.item-price__title {
+  font-family: "Italiana";
+  font-style: normal;
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.item-price__price {
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: 0.02em;
+  padding: 13px 30px;
+  border: 1px solid #fff;
+  display: inline-block;
+  margin-bottom: 60px;
+}
+
+.item-price__list {
+  text-align: left;
+  margin-bottom: 48px;
+  padding: 0 20px;
+}
+
+.item-price__item {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.item-price__extra {
+  font-family: "Fira Sans Condensed";
+  font-style: italic;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 110%;
+  margin-bottom: 50px;
+}
+
+.item-price__extra b {
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.item-price__extra span:first-child {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.item-price__footer b {
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0.03em;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.item-price__footer span {
+  font-weight: 300;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 -5px;
+}
+
+.benefit {
+  margin: 80px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.benefit-item {
+  position: relative;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.benefit-count {
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-size: 18px;
+}
+
+.benefit-count span {
+  font-size: 48px;
+  font-weight: 500;
+}
+
+.benefit-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-animation: round-text 15s infinite linear;
+          animation: round-text 15s infinite linear;
+}
+
+.benefit-text span {
+  position: absolute;
+  left: 50%;
+  -webkit-transform-origin: 0 100px;
+      -ms-transform-origin: 0 100px;
+          transform-origin: 0 100px;
+}
+
+@-webkit-keyframes round-text {
+  from {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  to {
+    -webkit-transform: rotate(1turn);
+            transform: rotate(1turn);
+  }
+}
+
+@keyframes round-text {
+  from {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  to {
+    -webkit-transform: rotate(1turn);
+            transform: rotate(1turn);
+  }
+}
+
+.price-title {
+  font-weight: 500;
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 25px;
+  padding: 0 10px;
+}
+
+@supports (font-size: clamp( 1.125rem , 0.875rem  +  1.25vw , 2rem )) {
+  .price-title {
+    font-size: clamp( 1.125rem , 0.875rem  +  1.25vw , 2rem );
+  }
+}
+
+@supports not (font-size: clamp( 1.125rem , 0.875rem  +  1.25vw , 2rem )) {
+  .price-title {
+    font-size: calc(
+			1.125rem + 0.875 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.certificate {
+  padding: 40px 0 72px;
+  background: url("../img/certificate.png") center center/cover no-repeat;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid var(--text-color);
+  position: relative;
+  color: #000;
+}
+
+.certificate:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.4392156863);
+  z-index: -1;
+}
+
+.certificate__title {
+  margin-bottom: 10px;
+}
+
+@supports (font-size: clamp( 3.125rem , 1.7321428571rem  +  6.9642857143vw , 8rem )) {
+  .certificate__title {
+    font-size: clamp( 3.125rem , 1.7321428571rem  +  6.9642857143vw , 8rem );
+  }
+}
+
+@supports not (font-size: clamp( 3.125rem , 1.7321428571rem  +  6.9642857143vw , 8rem )) {
+  .certificate__title {
+    font-size: calc(
+			3.125rem + 4.875 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.certificate__subtitle {
+  font-size: 20px;
+}
+
+.certificate__link {
+  margin-top: 45px;
+  padding: 17px 34px;
+  min-width: 280px;
+  text-align: center;
+  border: 1px solid #000;
+  font-weight: 500;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.price-footer {
+  margin-top: 80px;
+  padding: 20px 0;
 }
 
 [data-aos=fade-left] {
@@ -2083,9 +2615,20 @@ body._locked {
     height: 188px;
     left: 5%;
   }
+}
 
-  .location-slider-arrow {
-    width: 30px;
+@media (max-width: 81.25em) {
+  .item-price:nth-child(1)::before,
+  .item-price:nth-child(2)::before,
+  .item-price:nth-child(3)::before {
+    display: none;
+  }
+
+  .item-price:nth-child(2) {
+    -webkit-transform: translateX(0);
+        -ms-transform: translateX(0);
+            transform: translateX(0);
+    margin-bottom: 0;
   }
 }
 
