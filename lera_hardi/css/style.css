@@ -1082,6 +1082,46 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -1179,30 +1219,33 @@ h6 {
 
 input[type=text],
 input[type=email],
-input[type=password] {
-  border: 1px solid #c4c4c4;
-  padding: 1rem;
+input[type=password],
+input[type=tel],
+textarea {
+  padding: 1rem 0.5rem;
 }
 
-input[type=text]:focus::-webkit-input-placeholder, input[type=email]:focus::-webkit-input-placeholder, input[type=password]:focus::-webkit-input-placeholder {
+input[type=text]:focus::-webkit-input-placeholder, input[type=email]:focus::-webkit-input-placeholder, input[type=password]:focus::-webkit-input-placeholder, input[type=tel]:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-input[type=text]:focus::-moz-placeholder, input[type=email]:focus::-moz-placeholder, input[type=password]:focus::-moz-placeholder {
+input[type=text]:focus::-moz-placeholder, input[type=email]:focus::-moz-placeholder, input[type=password]:focus::-moz-placeholder, input[type=tel]:focus::-moz-placeholder, textarea:focus::-moz-placeholder {
   color: transparent;
 }
 
-input[type=text]:focus:-ms-input-placeholder, input[type=email]:focus:-ms-input-placeholder, input[type=password]:focus:-ms-input-placeholder {
+input[type=text]:focus:-ms-input-placeholder, input[type=email]:focus:-ms-input-placeholder, input[type=password]:focus:-ms-input-placeholder, input[type=tel]:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder {
   color: transparent;
 }
 
-input[type=text]:focus::-ms-input-placeholder, input[type=email]:focus::-ms-input-placeholder, input[type=password]:focus::-ms-input-placeholder {
+input[type=text]:focus::-ms-input-placeholder, input[type=email]:focus::-ms-input-placeholder, input[type=password]:focus::-ms-input-placeholder, input[type=tel]:focus::-ms-input-placeholder, textarea:focus::-ms-input-placeholder {
   color: transparent;
 }
 
 input[type=text]:focus::placeholder,
 input[type=email]:focus::placeholder,
-input[type=password]:focus::placeholder {
+input[type=password]:focus::placeholder,
+input[type=tel]:focus::placeholder,
+textarea:focus::placeholder {
   color: transparent;
 }
 
@@ -2438,7 +2481,7 @@ body._locked {
   }
 }
 
-.certificate {
+.price-certificate {
   padding: 40px 0 72px;
   background: url("../img/certificate.png") center center/cover no-repeat;
   display: -webkit-box;
@@ -2459,7 +2502,7 @@ body._locked {
   color: #000;
 }
 
-.certificate:after {
+.price-certificate:after {
   content: "";
   position: absolute;
   inset: 0;
@@ -2467,29 +2510,29 @@ body._locked {
   z-index: -1;
 }
 
-.certificate__title {
+.price-certificate .certificate__title {
   margin-bottom: 10px;
 }
 
 @supports (font-size: clamp( 3.125rem , 1.7321428571rem  +  6.9642857143vw , 8rem )) {
-  .certificate__title {
+  .price-certificate .certificate__title {
     font-size: clamp( 3.125rem , 1.7321428571rem  +  6.9642857143vw , 8rem );
   }
 }
 
 @supports not (font-size: clamp( 3.125rem , 1.7321428571rem  +  6.9642857143vw , 8rem )) {
-  .certificate__title {
+  .price-certificate .certificate__title {
     font-size: calc(
 			3.125rem + 4.875 * (100vw - 20rem) / 70
 		);
   }
 }
 
-.certificate__subtitle {
+.price-certificate .certificate__subtitle {
   font-size: 20px;
 }
 
-.certificate__link {
+.price-certificate .certificate__link {
   margin-top: 45px;
   padding: 17px 34px;
   min-width: 280px;
@@ -2503,6 +2546,202 @@ body._locked {
 .price-footer {
   margin-top: 80px;
   padding: 20px 0;
+}
+
+.certificate {
+  border: 1px solid var(--text-color);
+  margin-top: 35px;
+}
+
+@supports (padding-top: clamp( 1.25rem , 2.0535714286rem  +  -0.8928571429vw , 1.875rem )) {
+  .certificate {
+    padding-top: clamp( 1.25rem , 2.0535714286rem  +  -0.8928571429vw , 1.875rem );
+  }
+}
+
+@supports not (padding-top: clamp( 1.25rem , 2.0535714286rem  +  -0.8928571429vw , 1.875rem )) {
+  .certificate {
+    padding-top: calc(
+			1.875rem + -0.625 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (padding-bottom: clamp( 1.875rem , 1.25rem  +  3.125vw , 4.0625rem )) {
+  .certificate {
+    padding-bottom: clamp( 1.875rem , 1.25rem  +  3.125vw , 4.0625rem );
+  }
+}
+
+@supports not (padding-bottom: clamp( 1.875rem , 1.25rem  +  3.125vw , 4.0625rem )) {
+  .certificate {
+    padding-bottom: calc(
+			1.875rem + 2.1875 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (padding-left: clamp( 1.875rem , 0.9821428571rem  +  4.4642857143vw , 5rem )) {
+  .certificate {
+    padding-left: clamp( 1.875rem , 0.9821428571rem  +  4.4642857143vw , 5rem );
+  }
+}
+
+@supports not (padding-left: clamp( 1.875rem , 0.9821428571rem  +  4.4642857143vw , 5rem )) {
+  .certificate {
+    padding-left: calc(
+			1.875rem + 3.125 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+@supports (padding-right: clamp( 1.875rem , 0.9821428571rem  +  4.4642857143vw , 5rem )) {
+  .certificate {
+    padding-right: clamp( 1.875rem , 0.9821428571rem  +  4.4642857143vw , 5rem );
+  }
+}
+
+@supports not (padding-right: clamp( 1.875rem , 0.9821428571rem  +  4.4642857143vw , 5rem )) {
+  .certificate {
+    padding-right: calc(
+			1.875rem + 3.125 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.certificate__sup {
+  text-align: center;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+}
+
+._light .certificate__sup {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+._dark .certificate__sup {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.certificate__body {
+  margin-top: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 50px;
+}
+
+.certificate__img img {
+  height: 100%;
+}
+
+.certificate__info {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@supports (gap: clamp( 1.25rem , 0.75rem  +  2.5vw , 3rem )) {
+  .certificate__info {
+    gap: clamp( 1.25rem , 0.75rem  +  2.5vw , 3rem );
+  }
+}
+
+@supports not (gap: clamp( 1.25rem , 0.75rem  +  2.5vw , 3rem )) {
+  .certificate__info {
+    gap: calc(
+			1.25rem + 1.75 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.certificate__title {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.form-certificate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  gap: 10px;
+}
+
+.form-certificate__input {
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--text-color);
+  color: var(--text-color);
+}
+
+.form-certificate__input::-webkit-input-placeholder {
+  color: var(--text-color);
+}
+
+.form-certificate__input::-moz-placeholder {
+  color: var(--text-color);
+}
+
+.form-certificate__input:-ms-input-placeholder {
+  color: var(--text-color);
+}
+
+.form-certificate__input::-ms-input-placeholder {
+  color: var(--text-color);
+}
+
+.form-certificate__input::placeholder {
+  color: var(--text-color);
+}
+
+.form-certificate__textarea {
+  resize: none;
+  height: 100px;
+  padding: 0.5rem;
+}
+
+.form-certificate span {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+._dark .form-certificate span {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+._light .form-certificate span {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.form-certificate__btn {
+  padding: 20px 70px;
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
 
 [data-aos=fade-left] {
@@ -2614,6 +2853,21 @@ body._locked {
     width: 197px;
     height: 188px;
     left: 5%;
+  }
+
+  .certificate__body {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
+  .certificate__img img {
+    display: none;
+  }
+
+  .form-certificate__btn {
+    width: 100%;
   }
 }
 
