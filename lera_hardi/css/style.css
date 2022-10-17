@@ -1122,6 +1122,46 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -1662,6 +1702,7 @@ body._locked {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
+  position: relative;
 }
 
 .preloader {
@@ -2744,6 +2785,121 @@ body._locked {
       align-self: flex-start;
 }
 
+.callback {
+  position: relative;
+}
+
+.callback .header__socials {
+  display: none;
+}
+
+.callback .ticker {
+  position: absolute;
+  top: 0;
+  left: -260px;
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.callback__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 30px;
+}
+
+.callback__img {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 60%;
+          flex: 0 0 60%;
+  text-align: center;
+}
+
+.callback__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.info-callback__suptitle {
+  margin-bottom: 8px;
+}
+
+@supports (font-size: clamp( 1.125rem , 1.0535714286rem  +  0.3571428571vw , 1.375rem )) {
+  .info-callback__suptitle {
+    font-size: clamp( 1.125rem , 1.0535714286rem  +  0.3571428571vw , 1.375rem );
+  }
+}
+
+@supports not (font-size: clamp( 1.125rem , 1.0535714286rem  +  0.3571428571vw , 1.375rem )) {
+  .info-callback__suptitle {
+    font-size: calc(
+			1.125rem + 0.25 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.info-callback__wa {
+  text-decoration: underline;
+  display: inline-block;
+  margin-bottom: 35px;
+}
+
+@supports (font-size: clamp( 1.25rem , 0.9642857143rem  +  1.4285714286vw , 2.25rem )) {
+  .info-callback__wa {
+    font-size: clamp( 1.25rem , 0.9642857143rem  +  1.4285714286vw , 2.25rem );
+  }
+}
+
+@supports not (font-size: clamp( 1.25rem , 0.9642857143rem  +  1.4285714286vw , 2.25rem )) {
+  .info-callback__wa {
+    font-size: calc(
+			1.25rem + 1 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.info-callback__item {
+  margin-bottom: 35px;
+}
+
+@supports (font-size: clamp( 1.25rem , 0.9642857143rem  +  1.4285714286vw , 2.25rem )) {
+  .info-callback__item {
+    font-size: clamp( 1.25rem , 0.9642857143rem  +  1.4285714286vw , 2.25rem );
+  }
+}
+
+@supports not (font-size: clamp( 1.25rem , 0.9642857143rem  +  1.4285714286vw , 2.25rem )) {
+  .info-callback__item {
+    font-size: calc(
+			1.25rem + 1 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.info-callback__item a {
+  text-decoration: underline;
+}
+
+.info-callback__link {
+  margin-top: 45px;
+  padding: 17px 34px;
+  min-width: 280px;
+  text-align: center;
+  border: 1px solid #000;
+  font-weight: 500;
+  font-size: 24px;
+  text-transform: uppercase;
+  border: 1px solid var(--text-color);
+  margin-top: auto;
+  display: inline-block;
+}
+
 [data-aos=fade-left] {
   -webkit-transform: translate3d(100px, 0, 0);
   transform: translate3d(100px, 0, 0);
@@ -2823,6 +2979,17 @@ body._locked {
 
   .slider-locations .slider-locations__arrows {
     display: none;
+  }
+
+  .callback__img {
+    display: none;
+  }
+
+  .callback__info {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+    text-align: center;
   }
 }
 
