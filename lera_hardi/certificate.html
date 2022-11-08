@@ -79,17 +79,17 @@
 				<img src="img/certificate-img.png" alt="">
 			</div>
 			<div class="certificate__info">
-				<div class="certificate__title">СЕРТИФИКАТ НА СъЕМКУ</div>
-				<div class="certificate__form form-certificate">
-					<input type="text" autocomplete="name" class="form-certificate__input" placeholder="Имя" />
-					<input type="tel" autocomplete="tel" class="form-certificate__input" placeholder="Телефон" />
-					<input type="email" autocomplete="email" class="form-certificate__input" placeholder="E-mail" />
+				<div class="certificate__title certificate">СЕРТИФИКАТ НА СъЕМКУ</div>
+				<form method="post" id="certificate-form" class="certificate__form form-certificate">
+					<input id="input-name" name="name" type="text" autocomplete="name" class="form-certificate__input" placeholder="Имя" />
+					<input id="input-tel" name="tel" type="tel" autocomplete="tel" class="form-certificate__input" placeholder="Телефон" />
+					<input id="input-email" name="email" type="email" autocomplete="email" class="form-certificate__input" placeholder="E-mail" />
 					<label>
-						<textarea type="text" class="form-certificate__input form-certificate__textarea" placeholder="Сообщение:"></textarea>
+						<textarea id="input-message" name="message" type="text" class="form-certificate__input form-certificate__textarea" placeholder="Сообщение:"></textarea>
 						<span>Укажите пакет, который Вы выбрали!</span>
 					</label>
 					<button class="form-certificate__btn" type="submit">ОТПРАВИТЬ</button>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>

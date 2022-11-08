@@ -376,6 +376,9 @@
                     refreshHard: se
                 };
             }));
+        },
+        230: module => {
+            module.exports = "object" == typeof self ? self.FormData : window.FormData;
         }
     };
     var __webpack_module_cache__ = {};
@@ -3688,7 +3691,2421 @@
             });
         }
         var aos = __webpack_require__(711);
+        var __defProp = Object.defineProperty;
+        var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+        var __hasOwnProp = Object.prototype.hasOwnProperty;
+        var __propIsEnum = Object.prototype.propertyIsEnumerable;
+        var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value
+        }) : obj[key] = value;
+        var __spreadValues = (a, b) => {
+            for (var prop in b || (b = {})) if (__hasOwnProp.call(b, prop)) __defNormalProp(a, prop, b[prop]);
+            if (__getOwnPropSymbols) for (var prop of __getOwnPropSymbols(b)) if (__propIsEnum.call(b, prop)) __defNormalProp(a, prop, b[prop]);
+            return a;
+        };
+        var __publicField = (obj, key, value) => {
+            __defNormalProp(obj, "symbol" !== typeof key ? key + "" : key, value);
+            return value;
+        };
+        const EMAIL_REGEXP = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const NUMBER_REGEXP = /^[0-9]+$/;
+        const PASSWORD_REGEXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        const STRONG_PASSWORD_REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const isEmpty = value => {
+            let newVal = value;
+            if ("string" === typeof value) newVal = value.trim();
+            return !newVal;
+        };
+        const isEmail = value => EMAIL_REGEXP.test(value);
+        const isLengthMoreThanMax = (value, len) => value.length > len;
+        const isLengthLessThanMin = (value, len) => value.length < len;
+        const isNumber = value => NUMBER_REGEXP.test(value);
+        const isPassword = value => PASSWORD_REGEXP.test(value);
+        const isStrongPassword = value => STRONG_PASSWORD_REGEXP.test(value);
+        const isNumberMoreThanMax = (value, len) => value > len;
+        const isNumberLessThanMin = (value, len) => value < len;
+        var Rules = (Rules2 => {
+            Rules2["Required"] = "required";
+            Rules2["Email"] = "email";
+            Rules2["MinLength"] = "minLength";
+            Rules2["MaxLength"] = "maxLength";
+            Rules2["Password"] = "password";
+            Rules2["Number"] = "number";
+            Rules2["MaxNumber"] = "maxNumber";
+            Rules2["MinNumber"] = "minNumber";
+            Rules2["StrongPassword"] = "strongPassword";
+            Rules2["CustomRegexp"] = "customRegexp";
+            Rules2["MinFilesCount"] = "minFilesCount";
+            Rules2["MaxFilesCount"] = "maxFilesCount";
+            Rules2["Files"] = "files";
+            return Rules2;
+        })(Rules || {});
+        var GroupRules = (GroupRules2 => {
+            GroupRules2["Required"] = "required";
+            return GroupRules2;
+        })(GroupRules || {});
+        var CustomStyleTagIds = (CustomStyleTagIds2 => {
+            CustomStyleTagIds2["Label"] = "label";
+            CustomStyleTagIds2["LabelArrow"] = "labelArrow";
+            return CustomStyleTagIds2;
+        })(CustomStyleTagIds || {});
+        const getDefaultFieldMessage = (rule, ruleValue) => {
+            switch (rule) {
+              case Rules.Required:
+                return "The field is required";
+
+              case Rules.Email:
+                return "Email has invalid format";
+
+              case Rules.MaxLength:
+                return "The field must contain a maximum of :value characters".replace(":value", String(ruleValue));
+
+              case Rules.MinLength:
+                return "The field must contain a minimum of :value characters".replace(":value", String(ruleValue));
+
+              case Rules.Password:
+                return "Password must contain minimum eight characters, at least one letter and one number";
+
+              case Rules.Number:
+                return "Value should be a number";
+
+              case Rules.StrongPassword:
+                return "Password should contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character";
+
+              case Rules.MaxNumber:
+                return "Number should be less or equal than :value".replace(":value", String(ruleValue));
+
+              case Rules.MinNumber:
+                return "Number should be more or equal than :value".replace(":value", String(ruleValue));
+
+              case Rules.MinFilesCount:
+                return "Files count should be more or equal than :value".replace(":value", String(ruleValue));
+
+              case Rules.MaxFilesCount:
+                return "Files count should be less or equal than :value".replace(":value", String(ruleValue));
+
+              case Rules.Files:
+                return "Uploaded files have one or several invalid properties (extension/size/type etc)";
+
+              default:
+                return "Value is incorrect";
+            }
+        };
+        const getDefaultGroupMessage = rule => {
+            switch (rule) {
+              case GroupRules.Required:
+                return "The field is required";
+
+              default:
+                return "Group is incorrect";
+            }
+        };
+        const isPromise = val => !!val && "function" === typeof val.then;
+        const getNodeParents = el => {
+            let elem = el;
+            const els = [];
+            while (elem) {
+                els.unshift(elem);
+                elem = elem.parentNode;
+            }
+            return els;
+        };
+        const getClosestParent = (groups, parents) => {
+            const reversedParents = [ ...parents ].reverse();
+            for (let i = 0, len = reversedParents.length; i < len; ++i) {
+                const parent = reversedParents[i];
+                for (const key in groups) {
+                    const group = groups[key];
+                    if (group.groupElem === parent) return [ key, group ];
+                }
+            }
+            return null;
+        };
+        const getClassList = classList => {
+            if (Array.isArray(classList)) return classList.filter((cls => cls.length > 0));
+            if ("string" === typeof classList && classList.trim()) return [ ...classList.split(" ").filter((cls => cls.length > 0)) ];
+            return [];
+        };
+        const errorLabelCss = `.just-validate-error-label[data-tooltip=true]{position:fixed;padding:4px 8px;background:#423f3f;color:#fff;white-space:nowrap;z-index:10;border-radius:4px;transform:translateY(-5px)}.just-validate-error-label[data-tooltip=true]:before{content:'';width:0;height:0;border-left:solid 5px transparent;border-right:solid 5px transparent;border-bottom:solid 5px #423f3f;position:absolute;z-index:3;display:block;bottom:-5px;transform:rotate(180deg);left:calc(50% - 5px)}.just-validate-error-label[data-tooltip=true][data-direction=left]{transform:translateX(-5px)}.just-validate-error-label[data-tooltip=true][data-direction=left]:before{right:-7px;bottom:auto;left:auto;top:calc(50% - 2px);transform:rotate(90deg)}.just-validate-error-label[data-tooltip=true][data-direction=right]{transform:translateX(5px)}.just-validate-error-label[data-tooltip=true][data-direction=right]:before{right:auto;bottom:auto;left:-7px;top:calc(50% - 2px);transform:rotate(-90deg)}.just-validate-error-label[data-tooltip=true][data-direction=bottom]{transform:translateY(5px)}.just-validate-error-label[data-tooltip=true][data-direction=bottom]:before{right:auto;bottom:auto;left:calc(50% - 5px);top:-5px;transform:rotate(0)}`;
+        const TOOLTIP_ARROW_HEIGHT = 5;
+        const defaultGlobalConfig = {
+            errorFieldStyle: {
+                color: "#b81111",
+                border: "1px solid #B81111"
+            },
+            errorFieldCssClass: "just-validate-error-field",
+            successFieldCssClass: "just-validate-success-field",
+            errorLabelStyle: {
+                color: "#b81111"
+            },
+            errorLabelCssClass: "just-validate-error-label",
+            successLabelCssClass: "just-validate-success-label",
+            focusInvalidField: true,
+            lockForm: true,
+            testingMode: false
+        };
+        class JustValidate {
+            constructor(form, globalConfig, dictLocale) {
+                __publicField(this, "form", null);
+                __publicField(this, "fields", {});
+                __publicField(this, "groupFields", {});
+                __publicField(this, "errors", {});
+                __publicField(this, "isValid", false);
+                __publicField(this, "isSubmitted", false);
+                __publicField(this, "globalConfig", defaultGlobalConfig);
+                __publicField(this, "errorLabels", {});
+                __publicField(this, "successLabels", {});
+                __publicField(this, "eventListeners", []);
+                __publicField(this, "dictLocale", []);
+                __publicField(this, "currentLocale");
+                __publicField(this, "customStyleTags", {});
+                __publicField(this, "onSuccessCallback");
+                __publicField(this, "onFailCallback");
+                __publicField(this, "tooltips", []);
+                __publicField(this, "lastScrollPosition");
+                __publicField(this, "isScrollTick");
+                __publicField(this, "refreshAllTooltips", (() => {
+                    this.tooltips.forEach((item => {
+                        item.refresh();
+                    }));
+                }));
+                __publicField(this, "handleDocumentScroll", (() => {
+                    this.lastScrollPosition = window.scrollY;
+                    if (!this.isScrollTick) {
+                        window.requestAnimationFrame((() => {
+                            this.refreshAllTooltips();
+                            this.isScrollTick = false;
+                        }));
+                        this.isScrollTick = true;
+                    }
+                }));
+                __publicField(this, "formSubmitHandler", (ev => {
+                    ev.preventDefault();
+                    this.isSubmitted = true;
+                    this.validateHandler(ev);
+                }));
+                __publicField(this, "handleFieldChange", (target => {
+                    let currentFieldName;
+                    for (const fieldName in this.fields) {
+                        const field = this.fields[fieldName];
+                        if (field.elem === target) {
+                            currentFieldName = fieldName;
+                            break;
+                        }
+                    }
+                    if (!currentFieldName) return;
+                    this.validateField(currentFieldName, true);
+                }));
+                __publicField(this, "handleGroupChange", (target => {
+                    let currentGroup;
+                    let currentGroupName;
+                    for (const groupName in this.groupFields) {
+                        const group = this.groupFields[groupName];
+                        if (group.elems.find((elem => elem === target))) {
+                            currentGroup = group;
+                            currentGroupName = groupName;
+                            break;
+                        }
+                    }
+                    if (!currentGroup || !currentGroupName) return;
+                    this.validateGroup(currentGroupName, currentGroup);
+                }));
+                __publicField(this, "handlerChange", (ev => {
+                    if (!ev.target) return;
+                    this.handleFieldChange(ev.target);
+                    this.handleGroupChange(ev.target);
+                    this.renderErrors();
+                }));
+                this.initialize(form, globalConfig, dictLocale);
+            }
+            initialize(form, globalConfig, dictLocale) {
+                this.form = null;
+                this.errors = {};
+                this.isValid = false;
+                this.isSubmitted = false;
+                this.globalConfig = defaultGlobalConfig;
+                this.errorLabels = {};
+                this.successLabels = {};
+                this.eventListeners = [];
+                this.customStyleTags = {};
+                this.tooltips = [];
+                if ("string" === typeof form) {
+                    const elem = document.querySelector(form);
+                    if (!elem) throw Error(`Form with ${form} selector not found! Please check the form selector`);
+                    this.setForm(elem);
+                } else if (form instanceof HTMLFormElement) this.setForm(form); else throw Error(`Form selector is not valid. Please specify a string selector or a DOM element.`);
+                this.globalConfig = __spreadValues(__spreadValues({}, defaultGlobalConfig), globalConfig);
+                if (dictLocale) this.dictLocale = dictLocale;
+                if (this.isTooltip()) {
+                    const styleTag = document.createElement("style");
+                    styleTag.textContent = errorLabelCss;
+                    this.customStyleTags[CustomStyleTagIds.Label] = document.head.appendChild(styleTag);
+                    this.addListener("scroll", document, this.handleDocumentScroll);
+                }
+            }
+            getLocalisedString(str) {
+                var _a;
+                if (!this.currentLocale || !this.dictLocale.length) return str;
+                const localisedStr = null == (_a = this.dictLocale.find((item => item.key === str))) ? void 0 : _a.dict[this.currentLocale];
+                return localisedStr || str;
+            }
+            getFieldErrorMessage(fieldRule, elem) {
+                const msg = "function" === typeof fieldRule.errorMessage ? fieldRule.errorMessage(this.getElemValue(elem), this.fields) : fieldRule.errorMessage;
+                return this.getLocalisedString(msg) || getDefaultFieldMessage(fieldRule.rule, fieldRule.value);
+            }
+            getFieldSuccessMessage(successMessage, elem) {
+                const msg = "function" === typeof successMessage ? successMessage(this.getElemValue(elem), this.fields) : successMessage;
+                return this.getLocalisedString(msg);
+            }
+            getGroupErrorMessage(groupRule) {
+                return this.getLocalisedString(groupRule.errorMessage) || getDefaultGroupMessage(groupRule.rule);
+            }
+            getGroupSuccessMessage(groupRule) {
+                return this.getLocalisedString(groupRule.successMessage);
+            }
+            setFieldInvalid(field, fieldRule) {
+                this.fields[field].isValid = false;
+                this.fields[field].errorMessage = this.getFieldErrorMessage(fieldRule, this.fields[field].elem);
+            }
+            setFieldValid(field, successMessage) {
+                this.fields[field].isValid = true;
+                if (void 0 !== successMessage) this.fields[field].successMessage = this.getFieldSuccessMessage(successMessage, this.fields[field].elem);
+            }
+            setGroupInvalid(groupName, groupRule) {
+                this.groupFields[groupName].isValid = false;
+                this.groupFields[groupName].errorMessage = this.getGroupErrorMessage(groupRule);
+            }
+            setGroupValid(groupName, groupRule) {
+                this.groupFields[groupName].isValid = true;
+                this.groupFields[groupName].successMessage = this.getGroupSuccessMessage(groupRule);
+            }
+            getElemValue(elem) {
+                switch (elem.type) {
+                  case "checkbox":
+                    return elem.checked;
+
+                  case "file":
+                    return elem.files;
+
+                  default:
+                    return elem.value;
+                }
+            }
+            validateGroupRule(groupName, elems, groupRule) {
+                switch (groupRule.rule) {
+                  case GroupRules.Required:
+                    if (elems.every((elem => !elem.checked))) this.setGroupInvalid(groupName, groupRule); else this.setGroupValid(groupName, groupRule);
+                }
+            }
+            validateFieldRule(field, elem, fieldRule, afterInputChanged = false) {
+                const ruleValue = fieldRule.value;
+                const elemValue = this.getElemValue(elem);
+                if (fieldRule.plugin) {
+                    const result = fieldRule.plugin(elemValue, this.fields);
+                    if (!result) this.setFieldInvalid(field, fieldRule);
+                    return;
+                }
+                switch (fieldRule.rule) {
+                  case Rules.Required:
+                    if (isEmpty(elemValue)) this.setFieldInvalid(field, fieldRule);
+                    break;
+
+                  case Rules.Email:
+                    if ("string" !== typeof elemValue) {
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if (!isEmail(elemValue)) this.setFieldInvalid(field, fieldRule);
+                    break;
+
+                  case Rules.MaxLength:
+                    if (void 0 === ruleValue) {
+                        console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. The field will be always invalid.`);
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("number" !== typeof ruleValue) {
+                        console.error(`Value for ${fieldRule.rule} rule for [${field}] should be a number. The field will be always invalid.`);
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("string" !== typeof elemValue) {
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("" === elemValue) break;
+                    if (isLengthMoreThanMax(elemValue, ruleValue)) this.setFieldInvalid(field, fieldRule);
+                    break;
+
+                  case Rules.MinLength:
+                    if (void 0 === ruleValue) {
+                        console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. The field will be always invalid.`);
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("number" !== typeof ruleValue) {
+                        console.error(`Value for ${fieldRule.rule} rule for [${field}] should be a number. The field will be always invalid.`);
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("string" !== typeof elemValue) {
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("" === elemValue) break;
+                    if (isLengthLessThanMin(elemValue, ruleValue)) this.setFieldInvalid(field, fieldRule);
+                    break;
+
+                  case Rules.Password:
+                    if ("string" !== typeof elemValue) {
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("" === elemValue) break;
+                    if (!isPassword(elemValue)) this.setFieldInvalid(field, fieldRule);
+                    break;
+
+                  case Rules.StrongPassword:
+                    if ("string" !== typeof elemValue) {
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("" === elemValue) break;
+                    if (!isStrongPassword(elemValue)) this.setFieldInvalid(field, fieldRule);
+                    break;
+
+                  case Rules.Number:
+                    if ("string" !== typeof elemValue) {
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("" === elemValue) break;
+                    if (!isNumber(elemValue)) this.setFieldInvalid(field, fieldRule);
+                    break;
+
+                  case Rules.MaxNumber:
+                    {
+                        if (void 0 === ruleValue) {
+                            console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. The field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            break;
+                        }
+                        if ("number" !== typeof ruleValue) {
+                            console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be a number. The field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            break;
+                        }
+                        if ("string" !== typeof elemValue) {
+                            this.setFieldInvalid(field, fieldRule);
+                            break;
+                        }
+                        if ("" === elemValue) break;
+                        const num = +elemValue;
+                        if (Number.isNaN(num) || isNumberMoreThanMax(num, ruleValue)) this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+
+                  case Rules.MinNumber:
+                    {
+                        if (void 0 === ruleValue) {
+                            console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. The field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            break;
+                        }
+                        if ("number" !== typeof ruleValue) {
+                            console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be a number. The field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            break;
+                        }
+                        if ("string" !== typeof elemValue) {
+                            this.setFieldInvalid(field, fieldRule);
+                            break;
+                        }
+                        if ("" === elemValue) break;
+                        const num = +elemValue;
+                        if (Number.isNaN(num) || isNumberLessThanMin(num, ruleValue)) this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+
+                  case Rules.CustomRegexp:
+                    {
+                        if (void 0 === ruleValue) {
+                            console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. This field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            return;
+                        }
+                        let regexp;
+                        try {
+                            regexp = new RegExp(ruleValue);
+                        } catch (e) {
+                            console.error(`Value for ${fieldRule.rule} rule for [${field}] should be a valid regexp. This field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            break;
+                        }
+                        const str = String(elemValue);
+                        if ("" !== str && !regexp.test(str)) this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+
+                  case Rules.MinFilesCount:
+                    if (void 0 === ruleValue) {
+                        console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. This field will be always invalid.`);
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("number" !== typeof ruleValue) {
+                        console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be a number. The field will be always invalid.`);
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if (Number.isFinite(null == elemValue ? void 0 : elemValue.length) && elemValue.length < ruleValue) {
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    break;
+
+                  case Rules.MaxFilesCount:
+                    if (void 0 === ruleValue) {
+                        console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. This field will be always invalid.`);
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if ("number" !== typeof ruleValue) {
+                        console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be a number. The field will be always invalid.`);
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    if (Number.isFinite(null == elemValue ? void 0 : elemValue.length) && elemValue.length > ruleValue) {
+                        this.setFieldInvalid(field, fieldRule);
+                        break;
+                    }
+                    break;
+
+                  case Rules.Files:
+                    {
+                        if (void 0 === ruleValue) {
+                            console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. This field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            return;
+                        }
+                        if ("object" !== typeof ruleValue) {
+                            console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be an object. This field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            return;
+                        }
+                        const filesConfig = ruleValue.files;
+                        if ("object" !== typeof filesConfig) {
+                            console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be an object with files array. This field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            return;
+                        }
+                        const isFilePropsInvalid = (file, fileConfig) => {
+                            const minSizeInvalid = Number.isFinite(fileConfig.minSize) && file.size < fileConfig.minSize;
+                            const maxSizeInvalid = Number.isFinite(fileConfig.maxSize) && file.size > fileConfig.maxSize;
+                            const nameInvalid = Array.isArray(fileConfig.names) && !fileConfig.names.includes(file.name);
+                            const extInvalid = Array.isArray(fileConfig.extensions) && !fileConfig.extensions.includes(file.name.split(".")[file.name.split(".").length - 1]);
+                            const typeInvalid = Array.isArray(fileConfig.types) && !fileConfig.types.includes(file.type);
+                            return minSizeInvalid || maxSizeInvalid || nameInvalid || extInvalid || typeInvalid;
+                        };
+                        if ("object" === typeof elemValue && null !== elemValue) for (let fileIdx = 0, len = elemValue.length; fileIdx < len; ++fileIdx) {
+                            const file = elemValue.item(fileIdx);
+                            if (!file) {
+                                this.setFieldInvalid(field, fieldRule);
+                                break;
+                            }
+                            const filesInvalid = isFilePropsInvalid(file, filesConfig);
+                            if (filesInvalid) {
+                                this.setFieldInvalid(field, fieldRule);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+
+                  default:
+                    {
+                        if ("function" !== typeof fieldRule.validator) {
+                            console.error(`Validator for custom rule for [${field}] field should be a function. This field will be always invalid.`);
+                            this.setFieldInvalid(field, fieldRule);
+                            return;
+                        }
+                        const result = fieldRule.validator(elemValue, this.fields);
+                        if ("boolean" !== typeof result && "function" !== typeof result) console.error(`Validator return value for [${field}] field should be boolean or function. It will be cast to boolean.`);
+                        if ("function" === typeof result) if (afterInputChanged) this.fields[field].asyncCheckPending = true; else {
+                            this.fields[field].asyncCheckPending = false;
+                            const promise = result();
+                            if (!isPromise(promise)) {
+                                console.error(`Validator function for custom rule for [${field}] field should return a Promise. This field will be always invalid.`);
+                                this.setFieldInvalid(field, fieldRule);
+                                return;
+                            }
+                            return promise.then((resp => {
+                                if (!resp) this.setFieldInvalid(field, fieldRule);
+                            })).catch((() => {
+                                this.setFieldInvalid(field, fieldRule);
+                            }));
+                        }
+                        if (!result) this.setFieldInvalid(field, fieldRule);
+                    }
+                }
+            }
+            validateField(fieldName, afterInputChanged = false) {
+                var _a;
+                const field = this.fields[fieldName];
+                field.isValid = true;
+                const promises = [];
+                [ ...field.rules ].reverse().forEach((rule => {
+                    const res = this.validateFieldRule(fieldName, field.elem, rule, afterInputChanged);
+                    if (isPromise(res)) promises.push(res);
+                }));
+                if (field.isValid) this.setFieldValid(fieldName, null == (_a = field.config) ? void 0 : _a.successMessage);
+                return Promise.allSettled(promises);
+            }
+            revalidateField(field) {
+                if ("string" !== typeof field) throw Error(`Field selector is not valid. Please specify a string selector.`);
+                if (!this.fields[field]) {
+                    console.error(`Field not found. Check the field selector.`);
+                    return Promise.reject();
+                }
+                return new Promise((resolve => {
+                    this.validateField(field, true).finally((() => {
+                        this.clearFieldStyle(field);
+                        this.clearFieldLabel(field);
+                        this.renderFieldError(field);
+                        resolve(!!this.fields[field].isValid);
+                    }));
+                }));
+            }
+            validateGroup(groupName, group) {
+                const promises = [];
+                [ ...group.rules ].reverse().forEach((rule => {
+                    const res = this.validateGroupRule(groupName, group.elems, rule);
+                    if (isPromise(res)) promises.push(res);
+                }));
+                return Promise.allSettled(promises);
+            }
+            focusInvalidField() {
+                for (const fieldName in this.fields) {
+                    const field = this.fields[fieldName];
+                    if (!field.isValid) {
+                        setTimeout((() => field.elem.focus()), 0);
+                        break;
+                    }
+                }
+            }
+            afterSubmitValidation(forceRevalidation = false) {
+                this.renderErrors(forceRevalidation);
+                if (this.globalConfig.focusInvalidField) this.focusInvalidField();
+            }
+            validate(forceRevalidation = false) {
+                return new Promise((resolve => {
+                    const promises = [];
+                    Object.keys(this.fields).forEach((fieldName => {
+                        const promise = this.validateField(fieldName);
+                        if (isPromise(promise)) promises.push(promise);
+                    }));
+                    Object.keys(this.groupFields).forEach((groupName => {
+                        const group = this.groupFields[groupName];
+                        const promise = this.validateGroup(groupName, group);
+                        if (isPromise(promise)) promises.push(promise);
+                    }));
+                    if (promises.length) Promise.allSettled(promises).then((() => {
+                        this.afterSubmitValidation(forceRevalidation);
+                        resolve(true);
+                    })); else {
+                        this.afterSubmitValidation(forceRevalidation);
+                        resolve(false);
+                    }
+                }));
+            }
+            revalidate() {
+                return new Promise((resolve => {
+                    this.validateHandler(void 0, true).finally((() => {
+                        if (this.globalConfig.focusInvalidField) this.focusInvalidField();
+                        resolve(this.isValid);
+                    }));
+                }));
+            }
+            validateHandler(ev, forceRevalidation = false) {
+                if (this.globalConfig.lockForm) this.lockForm();
+                return this.validate(forceRevalidation).finally((() => {
+                    var _a, _b;
+                    if (this.globalConfig.lockForm) this.unlockForm();
+                    if (this.isValid) null == (_a = this.onSuccessCallback) ? void 0 : _a.call(this, ev); else null == (_b = this.onFailCallback) ? void 0 : _b.call(this, this.fields, this.groupFields);
+                }));
+            }
+            setForm(form) {
+                this.form = form;
+                this.form.setAttribute("novalidate", "novalidate");
+                this.removeListener("submit", this.form, this.formSubmitHandler);
+                this.addListener("submit", this.form, this.formSubmitHandler);
+            }
+            addListener(type, elem, handler) {
+                elem.addEventListener(type, handler);
+                this.eventListeners.push({
+                    type,
+                    elem,
+                    func: handler
+                });
+            }
+            removeListener(type, elem, handler) {
+                elem.removeEventListener(type, handler);
+                this.eventListeners = this.eventListeners.filter((item => item.type !== type || item.elem !== elem));
+            }
+            addField(field, rules, config) {
+                if ("string" !== typeof field) throw Error(`Field selector is not valid. Please specify a string selector.`);
+                const elem = this.form.querySelector(field);
+                if (!elem) throw Error(`Field with ${field} selector not found! Please check the field selector.`);
+                if (!Array.isArray(rules) || !rules.length) throw Error(`Rules argument for the field [${field}] should be an array and should contain at least 1 element.`);
+                rules.forEach((item => {
+                    if (!("rule" in item || "validator" in item || "plugin" in item)) throw Error(`Rules argument for the field [${field}] must contain at least one rule or validator property.`);
+                    if (!item.validator && !item.plugin && (!item.rule || !Object.values(Rules).includes(item.rule))) throw Error(`Rule should be one of these types: ${Object.values(Rules).join(", ")}. Provided value: ${item.rule}`);
+                }));
+                this.fields[field] = {
+                    elem,
+                    rules,
+                    isValid: void 0,
+                    config
+                };
+                this.setListeners(elem);
+                if (this.isSubmitted) this.validate();
+                return this;
+            }
+            removeField(field) {
+                if ("string" !== typeof field) throw Error(`Field selector is not valid. Please specify a string selector.`);
+                if (!this.fields[field]) {
+                    console.error(`Field not found. Check the field selector.`);
+                    return this;
+                }
+                const type = this.getListenerType(this.fields[field].elem.type);
+                this.removeListener(type, this.fields[field].elem, this.handlerChange);
+                this.clearErrors();
+                delete this.fields[field];
+                return this;
+            }
+            removeGroup(group) {
+                if ("string" !== typeof group) throw Error(`Group selector is not valid. Please specify a string selector.`);
+                if (!this.groupFields[group]) {
+                    console.error(`Group not found. Check the group selector.`);
+                    return this;
+                }
+                this.groupFields[group].elems.forEach((elem => {
+                    const type = this.getListenerType(elem.type);
+                    this.removeListener(type, elem, this.handlerChange);
+                }));
+                this.clearErrors();
+                delete this.groupFields[group];
+                return this;
+            }
+            addRequiredGroup(groupField, errorMessage, config, successMessage) {
+                if ("string" !== typeof groupField) throw Error(`Group selector is not valid. Please specify a string selector.`);
+                const elem = this.form.querySelector(groupField);
+                if (!elem) throw Error(`Group with ${groupField} selector not found! Please check the group selector.`);
+                const inputs = elem.querySelectorAll("input");
+                const childrenInputs = Array.from(inputs).filter((input => {
+                    const parent = getClosestParent(this.groupFields, getNodeParents(input));
+                    if (!parent) return true;
+                    return parent[1].elems.find((elem2 => elem2 !== input));
+                }));
+                this.groupFields[groupField] = {
+                    rules: [ {
+                        rule: GroupRules.Required,
+                        errorMessage,
+                        successMessage
+                    } ],
+                    groupElem: elem,
+                    elems: childrenInputs,
+                    isDirty: false,
+                    isValid: void 0,
+                    config
+                };
+                inputs.forEach((input => {
+                    this.setListeners(input);
+                }));
+                return this;
+            }
+            getListenerType(type) {
+                switch (type) {
+                  case "checkbox":
+                  case "select-one":
+                  case "file":
+                  case "radio":
+                    return "change";
+
+                  default:
+                    return "input";
+                }
+            }
+            setListeners(elem) {
+                const type = this.getListenerType(elem.type);
+                this.removeListener(type, elem, this.handlerChange);
+                this.addListener(type, elem, this.handlerChange);
+            }
+            clearFieldLabel(fieldName) {
+                var _a, _b;
+                null == (_a = this.errorLabels[fieldName]) ? void 0 : _a.remove();
+                null == (_b = this.successLabels[fieldName]) ? void 0 : _b.remove();
+            }
+            clearFieldStyle(fieldName) {
+                var _a, _b, _c, _d;
+                const field = this.fields[fieldName];
+                const errorStyle = (null == (_a = field.config) ? void 0 : _a.errorFieldStyle) || this.globalConfig.errorFieldStyle;
+                Object.keys(errorStyle).forEach((key => {
+                    field.elem.style[key] = "";
+                }));
+                const successStyle = (null == (_b = field.config) ? void 0 : _b.successFieldStyle) || this.globalConfig.successFieldStyle || {};
+                Object.keys(successStyle).forEach((key => {
+                    field.elem.style[key] = "";
+                }));
+                field.elem.classList.remove(...getClassList((null == (_c = field.config) ? void 0 : _c.errorFieldCssClass) || this.globalConfig.errorFieldCssClass), ...getClassList((null == (_d = field.config) ? void 0 : _d.successFieldCssClass) || this.globalConfig.successFieldCssClass));
+            }
+            clearErrors() {
+                var _a, _b;
+                Object.keys(this.errorLabels).forEach((key => this.errorLabels[key].remove()));
+                Object.keys(this.successLabels).forEach((key => this.successLabels[key].remove()));
+                for (const fieldName in this.fields) this.clearFieldStyle(fieldName);
+                for (const groupName in this.groupFields) {
+                    const group = this.groupFields[groupName];
+                    const errorStyle = (null == (_a = group.config) ? void 0 : _a.errorFieldStyle) || this.globalConfig.errorFieldStyle;
+                    Object.keys(errorStyle).forEach((key => {
+                        group.elems.forEach((elem => {
+                            var _a2;
+                            elem.style[key] = "";
+                            elem.classList.remove(...getClassList((null == (_a2 = group.config) ? void 0 : _a2.errorFieldCssClass) || this.globalConfig.errorFieldCssClass));
+                        }));
+                    }));
+                    const successStyle = (null == (_b = group.config) ? void 0 : _b.successFieldStyle) || this.globalConfig.successFieldStyle || {};
+                    Object.keys(successStyle).forEach((key => {
+                        group.elems.forEach((elem => {
+                            var _a2;
+                            elem.style[key] = "";
+                            elem.classList.remove(...getClassList((null == (_a2 = group.config) ? void 0 : _a2.successFieldCssClass) || this.globalConfig.successFieldCssClass));
+                        }));
+                    }));
+                }
+                this.tooltips = [];
+            }
+            isTooltip() {
+                return !!this.globalConfig.tooltip;
+            }
+            lockForm() {
+                const elems = this.form.querySelectorAll("input, textarea, button, select");
+                for (let i = 0, len = elems.length; i < len; ++i) {
+                    elems[i].setAttribute("data-just-validate-fallback-disabled", elems[i].disabled ? "true" : "false");
+                    elems[i].setAttribute("disabled", "disabled");
+                    elems[i].style.pointerEvents = "none";
+                    elems[i].style.webkitFilter = "grayscale(100%)";
+                    elems[i].style.filter = "grayscale(100%)";
+                }
+            }
+            unlockForm() {
+                const elems = this.form.querySelectorAll("input, textarea, button, select");
+                for (let i = 0, len = elems.length; i < len; ++i) {
+                    if ("true" !== elems[i].getAttribute("data-just-validate-fallback-disabled")) elems[i].removeAttribute("disabled");
+                    elems[i].style.pointerEvents = "";
+                    elems[i].style.webkitFilter = "";
+                    elems[i].style.filter = "";
+                }
+            }
+            renderTooltip(elem, errorLabel, position) {
+                var _a;
+                const {top, left, width, height} = elem.getBoundingClientRect();
+                const errorLabelRect = errorLabel.getBoundingClientRect();
+                const pos = position || (null == (_a = this.globalConfig.tooltip) ? void 0 : _a.position);
+                switch (pos) {
+                  case "left":
+                    errorLabel.style.top = `${top + height / 2 - errorLabelRect.height / 2}px`;
+                    errorLabel.style.left = `${left - errorLabelRect.width - TOOLTIP_ARROW_HEIGHT}px`;
+                    break;
+
+                  case "top":
+                    errorLabel.style.top = `${top - errorLabelRect.height - TOOLTIP_ARROW_HEIGHT}px`;
+                    errorLabel.style.left = `${left + width / 2 - errorLabelRect.width / 2}px`;
+                    break;
+
+                  case "right":
+                    errorLabel.style.top = `${top + height / 2 - errorLabelRect.height / 2}px`;
+                    errorLabel.style.left = `${left + width + TOOLTIP_ARROW_HEIGHT}px`;
+                    break;
+
+                  case "bottom":
+                    errorLabel.style.top = `${top + height + TOOLTIP_ARROW_HEIGHT}px`;
+                    errorLabel.style.left = `${left + width / 2 - errorLabelRect.width / 2}px`;
+                    break;
+                }
+                errorLabel.dataset.direction = pos;
+                const refresh = () => {
+                    this.renderTooltip(elem, errorLabel, position);
+                };
+                return {
+                    refresh
+                };
+            }
+            createErrorLabelElem(name, errorMessage, config) {
+                const errorLabel = document.createElement("div");
+                errorLabel.innerHTML = errorMessage;
+                const customErrorLabelStyle = this.isTooltip() ? null == config ? void 0 : config.errorLabelStyle : (null == config ? void 0 : config.errorLabelStyle) || this.globalConfig.errorLabelStyle;
+                Object.assign(errorLabel.style, customErrorLabelStyle);
+                errorLabel.classList.add(...getClassList((null == config ? void 0 : config.errorLabelCssClass) || this.globalConfig.errorLabelCssClass), "just-validate-error-label");
+                if (this.isTooltip()) errorLabel.dataset.tooltip = "true";
+                if (this.globalConfig.testingMode) errorLabel.dataset.testId = `error-label-${name}`;
+                this.errorLabels[name] = errorLabel;
+                return errorLabel;
+            }
+            createSuccessLabelElem(name, successMessage, config) {
+                if (void 0 === successMessage) return null;
+                const successLabel = document.createElement("div");
+                successLabel.innerHTML = successMessage;
+                const customSuccessLabelStyle = (null == config ? void 0 : config.successLabelStyle) || this.globalConfig.successLabelStyle;
+                Object.assign(successLabel.style, customSuccessLabelStyle);
+                successLabel.classList.add(...getClassList((null == config ? void 0 : config.successLabelCssClass) || this.globalConfig.successLabelCssClass), "just-validate-success-label");
+                if (this.globalConfig.testingMode) successLabel.dataset.testId = `success-label-${name}`;
+                this.successLabels[name] = successLabel;
+                return successLabel;
+            }
+            renderErrorsContainer(label, errorsContainer) {
+                const container = errorsContainer || this.globalConfig.errorsContainer;
+                if ("string" === typeof container) {
+                    const elem = this.form.querySelector(container);
+                    if (elem) {
+                        elem.appendChild(label);
+                        return true;
+                    } else console.error(`Error container with ${container} selector not found. Errors will be rendered as usual`);
+                }
+                if (container instanceof Element) {
+                    container.appendChild(label);
+                    return true;
+                }
+                if (void 0 !== container) console.error(`Error container not found. It should be a string or existing Element. Errors will be rendered as usual`);
+                return false;
+            }
+            renderGroupLabel(elem, label, errorsContainer, isSuccess) {
+                if (!isSuccess) {
+                    const renderedInErrorsContainer = this.renderErrorsContainer(label, errorsContainer);
+                    if (renderedInErrorsContainer) return;
+                }
+                elem.appendChild(label);
+            }
+            renderFieldLabel(elem, label, errorsContainer, isSuccess) {
+                var _a, _b, _c, _d, _e, _f, _g;
+                if (!isSuccess) {
+                    const renderedInErrorsContainer = this.renderErrorsContainer(label, errorsContainer);
+                    if (renderedInErrorsContainer) return;
+                }
+                if ("checkbox" === elem.type || "radio" === elem.type) {
+                    const labelElem = document.querySelector(`label[for="${elem.getAttribute("id")}"]`);
+                    if ("label" === (null == (_b = null == (_a = elem.parentElement) ? void 0 : _a.tagName) ? void 0 : _b.toLowerCase())) null == (_d = null == (_c = elem.parentElement) ? void 0 : _c.parentElement) ? void 0 : _d.appendChild(label); else if (labelElem) null == (_e = labelElem.parentElement) ? void 0 : _e.appendChild(label); else null == (_f = elem.parentElement) ? void 0 : _f.appendChild(label);
+                } else null == (_g = elem.parentElement) ? void 0 : _g.appendChild(label);
+            }
+            showLabels(fields, isError) {
+                Object.keys(fields).forEach(((fieldName, i) => {
+                    const error = fields[fieldName];
+                    const field = this.fields[fieldName];
+                    field.isValid = !isError;
+                    this.clearFieldStyle(fieldName);
+                    this.clearFieldLabel(fieldName);
+                    this.renderFieldError(fieldName, error);
+                    if (0 === i && this.globalConfig.focusInvalidField) setTimeout((() => field.elem.focus()), 0);
+                }));
+            }
+            showErrors(fields) {
+                if ("object" !== typeof fields) throw Error("[showErrors]: Errors should be an object with key: value format");
+                this.showLabels(fields, true);
+            }
+            showSuccessLabels(fields) {
+                if ("object" !== typeof fields) throw Error("[showSuccessLabels]: Labels should be an object with key: value format");
+                this.showLabels(fields, false);
+            }
+            renderFieldError(fieldName, message) {
+                var _a, _b, _c, _d, _e, _f;
+                const field = this.fields[fieldName];
+                if (field.isValid) {
+                    if (!field.asyncCheckPending) {
+                        const successLabel = this.createSuccessLabelElem(fieldName, void 0 !== message ? message : field.successMessage, field.config);
+                        if (successLabel) this.renderFieldLabel(field.elem, successLabel, null == (_a = field.config) ? void 0 : _a.errorsContainer, true);
+                        field.elem.classList.add(...getClassList((null == (_b = field.config) ? void 0 : _b.successFieldCssClass) || this.globalConfig.successFieldCssClass));
+                    }
+                    return;
+                }
+                this.isValid = false;
+                field.elem.classList.add(...getClassList((null == (_c = field.config) ? void 0 : _c.errorFieldCssClass) || this.globalConfig.errorFieldCssClass));
+                const errorLabel = this.createErrorLabelElem(fieldName, void 0 !== message ? message : field.errorMessage, field.config);
+                this.renderFieldLabel(field.elem, errorLabel, null == (_d = field.config) ? void 0 : _d.errorsContainer);
+                if (this.isTooltip()) this.tooltips.push(this.renderTooltip(field.elem, errorLabel, null == (_f = null == (_e = field.config) ? void 0 : _e.tooltip) ? void 0 : _f.position));
+            }
+            renderErrors(forceRevalidation = false) {
+                var _a, _b, _c, _d;
+                if (!this.isSubmitted && !forceRevalidation) return;
+                this.clearErrors();
+                this.isValid = true;
+                for (const groupName in this.groupFields) {
+                    const group = this.groupFields[groupName];
+                    if (group.isValid) {
+                        group.elems.forEach((elem => {
+                            var _a2, _b2;
+                            Object.assign(elem.style, (null == (_a2 = group.config) ? void 0 : _a2.successFieldStyle) || this.globalConfig.successFieldStyle);
+                            elem.classList.add(...getClassList((null == (_b2 = group.config) ? void 0 : _b2.successFieldCssClass) || this.globalConfig.successFieldCssClass));
+                        }));
+                        const successLabel = this.createSuccessLabelElem(groupName, group.successMessage, group.config);
+                        if (successLabel) this.renderGroupLabel(group.groupElem, successLabel, null == (_a = group.config) ? void 0 : _a.errorsContainer, true);
+                        continue;
+                    }
+                    this.isValid = false;
+                    group.elems.forEach((elem => {
+                        var _a2, _b2;
+                        Object.assign(elem.style, (null == (_a2 = group.config) ? void 0 : _a2.errorFieldStyle) || this.globalConfig.errorFieldStyle);
+                        elem.classList.add(...getClassList((null == (_b2 = group.config) ? void 0 : _b2.errorFieldCssClass) || this.globalConfig.errorFieldCssClass));
+                    }));
+                    const errorLabel = this.createErrorLabelElem(groupName, group.errorMessage, group.config);
+                    this.renderGroupLabel(group.groupElem, errorLabel, null == (_b = group.config) ? void 0 : _b.errorsContainer);
+                    if (this.isTooltip()) this.tooltips.push(this.renderTooltip(group.groupElem, errorLabel, null == (_d = null == (_c = group.config) ? void 0 : _c.tooltip) ? void 0 : _d.position));
+                }
+                for (const fieldName in this.fields) this.renderFieldError(fieldName);
+            }
+            destroy() {
+                this.eventListeners.forEach((event => {
+                    this.removeListener(event.type, event.elem, event.func);
+                }));
+                Object.keys(this.customStyleTags).forEach((key => {
+                    this.customStyleTags[key].remove();
+                }));
+                this.clearErrors();
+                if (this.globalConfig.lockForm) this.unlockForm();
+            }
+            refresh() {
+                this.destroy();
+                if (!this.form) console.error("Cannot initialize the library! Form is not defined"); else {
+                    this.initialize(this.form, this.globalConfig);
+                    Object.keys(this.fields).forEach((key => {
+                        this.addField(key, [ ...this.fields[key].rules ], this.fields[key].config);
+                    }));
+                }
+            }
+            setCurrentLocale(locale) {
+                if ("string" !== typeof locale && void 0 !== locale) {
+                    console.error("Current locale should be a string");
+                    return;
+                }
+                this.currentLocale = locale;
+                if (this.isSubmitted) this.validate();
+            }
+            onSuccess(callback) {
+                this.onSuccessCallback = callback;
+                return this;
+            }
+            onFail(callback) {
+                this.onFailCallback = callback;
+                return this;
+            }
+        }
+        function bind(fn, thisArg) {
+            return function wrap() {
+                return fn.apply(thisArg, arguments);
+            };
+        }
+        const {toString: utils_toString} = Object.prototype;
+        const {getPrototypeOf} = Object;
+        const kindOf = (cache => thing => {
+            const str = utils_toString.call(thing);
+            return cache[str] || (cache[str] = str.slice(8, -1).toLowerCase());
+        })(Object.create(null));
+        const kindOfTest = type => {
+            type = type.toLowerCase();
+            return thing => kindOf(thing) === type;
+        };
+        const typeOfTest = type => thing => typeof thing === type;
+        const {isArray} = Array;
+        const isUndefined = typeOfTest("undefined");
+        function isBuffer(val) {
+            return null !== val && !isUndefined(val) && null !== val.constructor && !isUndefined(val.constructor) && isFunction(val.constructor.isBuffer) && val.constructor.isBuffer(val);
+        }
+        const isArrayBuffer = kindOfTest("ArrayBuffer");
+        function isArrayBufferView(val) {
+            let result;
+            if ("undefined" !== typeof ArrayBuffer && ArrayBuffer.isView) result = ArrayBuffer.isView(val); else result = val && val.buffer && isArrayBuffer(val.buffer);
+            return result;
+        }
+        const isString = typeOfTest("string");
+        const isFunction = typeOfTest("function");
+        const utils_isNumber = typeOfTest("number");
+        const lib_utils_isObject = thing => null !== thing && "object" === typeof thing;
+        const isBoolean = thing => true === thing || false === thing;
+        const isPlainObject = val => {
+            if ("object" !== kindOf(val)) return false;
+            const prototype = getPrototypeOf(val);
+            return (null === prototype || prototype === Object.prototype || null === Object.getPrototypeOf(prototype)) && !(Symbol.toStringTag in val) && !(Symbol.iterator in val);
+        };
+        const isDate = kindOfTest("Date");
+        const isFile = kindOfTest("File");
+        const isBlob = kindOfTest("Blob");
+        const isFileList = kindOfTest("FileList");
+        const isStream = val => lib_utils_isObject(val) && isFunction(val.pipe);
+        const isFormData = thing => {
+            const pattern = "[object FormData]";
+            return thing && ("function" === typeof FormData && thing instanceof FormData || utils_toString.call(thing) === pattern || isFunction(thing.toString) && thing.toString() === pattern);
+        };
+        const isURLSearchParams = kindOfTest("URLSearchParams");
+        const trim = str => str.trim ? str.trim() : str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
+        function forEach(obj, fn, {allOwnKeys = false} = {}) {
+            if (null === obj || "undefined" === typeof obj) return;
+            let i;
+            let l;
+            if ("object" !== typeof obj) obj = [ obj ];
+            if (isArray(obj)) for (i = 0, l = obj.length; i < l; i++) fn.call(null, obj[i], i, obj); else {
+                const keys = allOwnKeys ? Object.getOwnPropertyNames(obj) : Object.keys(obj);
+                const len = keys.length;
+                let key;
+                for (i = 0; i < len; i++) {
+                    key = keys[i];
+                    fn.call(null, obj[key], key, obj);
+                }
+            }
+        }
+        function merge() {
+            const result = {};
+            const assignValue = (val, key) => {
+                if (isPlainObject(result[key]) && isPlainObject(val)) result[key] = merge(result[key], val); else if (isPlainObject(val)) result[key] = merge({}, val); else if (isArray(val)) result[key] = val.slice(); else result[key] = val;
+            };
+            for (let i = 0, l = arguments.length; i < l; i++) arguments[i] && forEach(arguments[i], assignValue);
+            return result;
+        }
+        const lib_utils_extend = (a, b, thisArg, {allOwnKeys} = {}) => {
+            forEach(b, ((val, key) => {
+                if (thisArg && isFunction(val)) a[key] = bind(val, thisArg); else a[key] = val;
+            }), {
+                allOwnKeys
+            });
+            return a;
+        };
+        const stripBOM = content => {
+            if (65279 === content.charCodeAt(0)) content = content.slice(1);
+            return content;
+        };
+        const inherits = (constructor, superConstructor, props, descriptors) => {
+            constructor.prototype = Object.create(superConstructor.prototype, descriptors);
+            constructor.prototype.constructor = constructor;
+            Object.defineProperty(constructor, "super", {
+                value: superConstructor.prototype
+            });
+            props && Object.assign(constructor.prototype, props);
+        };
+        const toFlatObject = (sourceObj, destObj, filter, propFilter) => {
+            let props;
+            let i;
+            let prop;
+            const merged = {};
+            destObj = destObj || {};
+            if (null == sourceObj) return destObj;
+            do {
+                props = Object.getOwnPropertyNames(sourceObj);
+                i = props.length;
+                while (i-- > 0) {
+                    prop = props[i];
+                    if ((!propFilter || propFilter(prop, sourceObj, destObj)) && !merged[prop]) {
+                        destObj[prop] = sourceObj[prop];
+                        merged[prop] = true;
+                    }
+                }
+                sourceObj = false !== filter && getPrototypeOf(sourceObj);
+            } while (sourceObj && (!filter || filter(sourceObj, destObj)) && sourceObj !== Object.prototype);
+            return destObj;
+        };
+        const endsWith = (str, searchString, position) => {
+            str = String(str);
+            if (void 0 === position || position > str.length) position = str.length;
+            position -= searchString.length;
+            const lastIndex = str.indexOf(searchString, position);
+            return -1 !== lastIndex && lastIndex === position;
+        };
+        const toArray = thing => {
+            if (!thing) return null;
+            if (isArray(thing)) return thing;
+            let i = thing.length;
+            if (!utils_isNumber(i)) return null;
+            const arr = new Array(i);
+            while (i-- > 0) arr[i] = thing[i];
+            return arr;
+        };
+        const isTypedArray = (TypedArray => thing => TypedArray && thing instanceof TypedArray)("undefined" !== typeof Uint8Array && getPrototypeOf(Uint8Array));
+        const forEachEntry = (obj, fn) => {
+            const generator = obj && obj[Symbol.iterator];
+            const iterator = generator.call(obj);
+            let result;
+            while ((result = iterator.next()) && !result.done) {
+                const pair = result.value;
+                fn.call(obj, pair[0], pair[1]);
+            }
+        };
+        const matchAll = (regExp, str) => {
+            let matches;
+            const arr = [];
+            while (null !== (matches = regExp.exec(str))) arr.push(matches);
+            return arr;
+        };
+        const isHTMLForm = kindOfTest("HTMLFormElement");
+        const utils_toCamelCase = str => str.toLowerCase().replace(/[_-\s]([a-z\d])(\w*)/g, (function replacer(m, p1, p2) {
+            return p1.toUpperCase() + p2;
+        }));
+        const utils_hasOwnProperty = (({hasOwnProperty}) => (obj, prop) => hasOwnProperty.call(obj, prop))(Object.prototype);
+        const isRegExp = kindOfTest("RegExp");
+        const reduceDescriptors = (obj, reducer) => {
+            const descriptors = Object.getOwnPropertyDescriptors(obj);
+            const reducedDescriptors = {};
+            forEach(descriptors, ((descriptor, name) => {
+                if (false !== reducer(descriptor, name, obj)) reducedDescriptors[name] = descriptor;
+            }));
+            Object.defineProperties(obj, reducedDescriptors);
+        };
+        const freezeMethods = obj => {
+            reduceDescriptors(obj, ((descriptor, name) => {
+                const value = obj[name];
+                if (!isFunction(value)) return;
+                descriptor.enumerable = false;
+                if ("writable" in descriptor) {
+                    descriptor.writable = false;
+                    return;
+                }
+                if (!descriptor.set) descriptor.set = () => {
+                    throw Error("Can not read-only method '" + name + "'");
+                };
+            }));
+        };
+        const toObjectSet = (arrayOrString, delimiter) => {
+            const obj = {};
+            const define = arr => {
+                arr.forEach((value => {
+                    obj[value] = true;
+                }));
+            };
+            isArray(arrayOrString) ? define(arrayOrString) : define(String(arrayOrString).split(delimiter));
+            return obj;
+        };
+        const noop = () => {};
+        const toFiniteNumber = (value, defaultValue) => {
+            value = +value;
+            return Number.isFinite(value) ? value : defaultValue;
+        };
+        const utils = {
+            isArray,
+            isArrayBuffer,
+            isBuffer,
+            isFormData,
+            isArrayBufferView,
+            isString,
+            isNumber: utils_isNumber,
+            isBoolean,
+            isObject: lib_utils_isObject,
+            isPlainObject,
+            isUndefined,
+            isDate,
+            isFile,
+            isBlob,
+            isRegExp,
+            isFunction,
+            isStream,
+            isURLSearchParams,
+            isTypedArray,
+            isFileList,
+            forEach,
+            merge,
+            extend: lib_utils_extend,
+            trim,
+            stripBOM,
+            inherits,
+            toFlatObject,
+            kindOf,
+            kindOfTest,
+            endsWith,
+            toArray,
+            forEachEntry,
+            matchAll,
+            isHTMLForm,
+            hasOwnProperty: utils_hasOwnProperty,
+            hasOwnProp: utils_hasOwnProperty,
+            reduceDescriptors,
+            freezeMethods,
+            toObjectSet,
+            toCamelCase: utils_toCamelCase,
+            noop,
+            toFiniteNumber
+        };
+        function AxiosError(message, code, config, request, response) {
+            Error.call(this);
+            if (Error.captureStackTrace) Error.captureStackTrace(this, this.constructor); else this.stack = (new Error).stack;
+            this.message = message;
+            this.name = "AxiosError";
+            code && (this.code = code);
+            config && (this.config = config);
+            request && (this.request = request);
+            response && (this.response = response);
+        }
+        utils.inherits(AxiosError, Error, {
+            toJSON: function toJSON() {
+                return {
+                    message: this.message,
+                    name: this.name,
+                    description: this.description,
+                    number: this.number,
+                    fileName: this.fileName,
+                    lineNumber: this.lineNumber,
+                    columnNumber: this.columnNumber,
+                    stack: this.stack,
+                    config: this.config,
+                    code: this.code,
+                    status: this.response && this.response.status ? this.response.status : null
+                };
+            }
+        });
+        const AxiosError_prototype = AxiosError.prototype;
+        const descriptors = {};
+        [ "ERR_BAD_OPTION_VALUE", "ERR_BAD_OPTION", "ECONNABORTED", "ETIMEDOUT", "ERR_NETWORK", "ERR_FR_TOO_MANY_REDIRECTS", "ERR_DEPRECATED", "ERR_BAD_RESPONSE", "ERR_BAD_REQUEST", "ERR_CANCELED", "ERR_NOT_SUPPORT", "ERR_INVALID_URL" ].forEach((code => {
+            descriptors[code] = {
+                value: code
+            };
+        }));
+        Object.defineProperties(AxiosError, descriptors);
+        Object.defineProperty(AxiosError_prototype, "isAxiosError", {
+            value: true
+        });
+        AxiosError.from = (error, code, config, request, response, customProps) => {
+            const axiosError = Object.create(AxiosError_prototype);
+            utils.toFlatObject(error, axiosError, (function filter(obj) {
+                return obj !== Error.prototype;
+            }), (prop => "isAxiosError" !== prop));
+            AxiosError.call(axiosError, error.message, code, config, request, response);
+            axiosError.cause = error;
+            axiosError.name = error.name;
+            customProps && Object.assign(axiosError, customProps);
+            return axiosError;
+        };
+        const core_AxiosError = AxiosError;
+        var lib_browser = __webpack_require__(230);
+        const classes_FormData = lib_browser;
+        function isVisitable(thing) {
+            return utils.isPlainObject(thing) || utils.isArray(thing);
+        }
+        function removeBrackets(key) {
+            return utils.endsWith(key, "[]") ? key.slice(0, -2) : key;
+        }
+        function renderKey(path, key, dots) {
+            if (!path) return key;
+            return path.concat(key).map((function each(token, i) {
+                token = removeBrackets(token);
+                return !dots && i ? "[" + token + "]" : token;
+            })).join(dots ? "." : "");
+        }
+        function isFlatArray(arr) {
+            return utils.isArray(arr) && !arr.some(isVisitable);
+        }
+        const predicates = utils.toFlatObject(utils, {}, null, (function filter(prop) {
+            return /^is[A-Z]/.test(prop);
+        }));
+        function isSpecCompliant(thing) {
+            return thing && utils.isFunction(thing.append) && "FormData" === thing[Symbol.toStringTag] && thing[Symbol.iterator];
+        }
+        function toFormData(obj, formData, options) {
+            if (!utils.isObject(obj)) throw new TypeError("target must be an object");
+            formData = formData || new (classes_FormData || FormData);
+            options = utils.toFlatObject(options, {
+                metaTokens: true,
+                dots: false,
+                indexes: false
+            }, false, (function defined(option, source) {
+                return !utils.isUndefined(source[option]);
+            }));
+            const metaTokens = options.metaTokens;
+            const visitor = options.visitor || defaultVisitor;
+            const dots = options.dots;
+            const indexes = options.indexes;
+            const _Blob = options.Blob || "undefined" !== typeof Blob && Blob;
+            const useBlob = _Blob && isSpecCompliant(formData);
+            if (!utils.isFunction(visitor)) throw new TypeError("visitor must be a function");
+            function convertValue(value) {
+                if (null === value) return "";
+                if (utils.isDate(value)) return value.toISOString();
+                if (!useBlob && utils.isBlob(value)) throw new core_AxiosError("Blob is not supported. Use a Buffer instead.");
+                if (utils.isArrayBuffer(value) || utils.isTypedArray(value)) return useBlob && "function" === typeof Blob ? new Blob([ value ]) : Buffer.from(value);
+                return value;
+            }
+            function defaultVisitor(value, key, path) {
+                let arr = value;
+                if (value && !path && "object" === typeof value) if (utils.endsWith(key, "{}")) {
+                    key = metaTokens ? key : key.slice(0, -2);
+                    value = JSON.stringify(value);
+                } else if (utils.isArray(value) && isFlatArray(value) || utils.isFileList(value) || utils.endsWith(key, "[]") && (arr = utils.toArray(value))) {
+                    key = removeBrackets(key);
+                    arr.forEach((function each(el, index) {
+                        !(utils.isUndefined(el) || null === el) && formData.append(true === indexes ? renderKey([ key ], index, dots) : null === indexes ? key : key + "[]", convertValue(el));
+                    }));
+                    return false;
+                }
+                if (isVisitable(value)) return true;
+                formData.append(renderKey(path, key, dots), convertValue(value));
+                return false;
+            }
+            const stack = [];
+            const exposedHelpers = Object.assign(predicates, {
+                defaultVisitor,
+                convertValue,
+                isVisitable
+            });
+            function build(value, path) {
+                if (utils.isUndefined(value)) return;
+                if (-1 !== stack.indexOf(value)) throw Error("Circular reference detected in " + path.join("."));
+                stack.push(value);
+                utils.forEach(value, (function each(el, key) {
+                    const result = !(utils.isUndefined(el) || null === el) && visitor.call(formData, el, utils.isString(key) ? key.trim() : key, path, exposedHelpers);
+                    if (true === result) build(el, path ? path.concat(key) : [ key ]);
+                }));
+                stack.pop();
+            }
+            if (!utils.isObject(obj)) throw new TypeError("data must be an object");
+            build(obj);
+            return formData;
+        }
+        const helpers_toFormData = toFormData;
+        function encode(str) {
+            const charMap = {
+                "!": "%21",
+                "'": "%27",
+                "(": "%28",
+                ")": "%29",
+                "~": "%7E",
+                "%20": "+",
+                "%00": "\0"
+            };
+            return encodeURIComponent(str).replace(/[!'()~]|%20|%00/g, (function replacer(match) {
+                return charMap[match];
+            }));
+        }
+        function AxiosURLSearchParams(params, options) {
+            this._pairs = [];
+            params && helpers_toFormData(params, this, options);
+        }
+        const AxiosURLSearchParams_prototype = AxiosURLSearchParams.prototype;
+        AxiosURLSearchParams_prototype.append = function append(name, value) {
+            this._pairs.push([ name, value ]);
+        };
+        AxiosURLSearchParams_prototype.toString = function toString(encoder) {
+            const _encode = encoder ? function(value) {
+                return encoder.call(this, value, encode);
+            } : encode;
+            return this._pairs.map((function each(pair) {
+                return _encode(pair[0]) + "=" + _encode(pair[1]);
+            }), "").join("&");
+        };
+        const helpers_AxiosURLSearchParams = AxiosURLSearchParams;
+        function buildURL_encode(val) {
+            return encodeURIComponent(val).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
+        }
+        function buildURL(url, params, options) {
+            if (!params) return url;
+            const _encode = options && options.encode || buildURL_encode;
+            const serializeFn = options && options.serialize;
+            let serializedParams;
+            if (serializeFn) serializedParams = serializeFn(params, options); else serializedParams = utils.isURLSearchParams(params) ? params.toString() : new helpers_AxiosURLSearchParams(params, options).toString(_encode);
+            if (serializedParams) {
+                const hashmarkIndex = url.indexOf("#");
+                if (-1 !== hashmarkIndex) url = url.slice(0, hashmarkIndex);
+                url += (-1 === url.indexOf("?") ? "?" : "&") + serializedParams;
+            }
+            return url;
+        }
+        class InterceptorManager {
+            constructor() {
+                this.handlers = [];
+            }
+            use(fulfilled, rejected, options) {
+                this.handlers.push({
+                    fulfilled,
+                    rejected,
+                    synchronous: options ? options.synchronous : false,
+                    runWhen: options ? options.runWhen : null
+                });
+                return this.handlers.length - 1;
+            }
+            eject(id) {
+                if (this.handlers[id]) this.handlers[id] = null;
+            }
+            clear() {
+                if (this.handlers) this.handlers = [];
+            }
+            forEach(fn) {
+                utils.forEach(this.handlers, (function forEachHandler(h) {
+                    if (null !== h) fn(h);
+                }));
+            }
+        }
+        const core_InterceptorManager = InterceptorManager;
+        const defaults_transitional = {
+            silentJSONParsing: true,
+            forcedJSONParsing: true,
+            clarifyTimeoutError: false
+        };
+        const classes_URLSearchParams = "undefined" !== typeof URLSearchParams ? URLSearchParams : helpers_AxiosURLSearchParams;
+        const browser_classes_FormData = FormData;
+        const isStandardBrowserEnv = (() => {
+            let product;
+            if ("undefined" !== typeof navigator && ("ReactNative" === (product = navigator.product) || "NativeScript" === product || "NS" === product)) return false;
+            return "undefined" !== typeof window && "undefined" !== typeof document;
+        })();
+        const platform_browser = {
+            isBrowser: true,
+            classes: {
+                URLSearchParams: classes_URLSearchParams,
+                FormData: browser_classes_FormData,
+                Blob
+            },
+            isStandardBrowserEnv,
+            protocols: [ "http", "https", "file", "blob", "url", "data" ]
+        };
+        function toURLEncodedForm(data, options) {
+            return helpers_toFormData(data, new platform_browser.classes.URLSearchParams, Object.assign({
+                visitor: function(value, key, path, helpers) {
+                    if (platform_browser.isNode && utils.isBuffer(value)) {
+                        this.append(key, value.toString("base64"));
+                        return false;
+                    }
+                    return helpers.defaultVisitor.apply(this, arguments);
+                }
+            }, options));
+        }
+        function parsePropPath(name) {
+            return utils.matchAll(/\w+|\[(\w*)]/g, name).map((match => "[]" === match[0] ? "" : match[1] || match[0]));
+        }
+        function arrayToObject(arr) {
+            const obj = {};
+            const keys = Object.keys(arr);
+            let i;
+            const len = keys.length;
+            let key;
+            for (i = 0; i < len; i++) {
+                key = keys[i];
+                obj[key] = arr[key];
+            }
+            return obj;
+        }
+        function formDataToJSON(formData) {
+            function buildPath(path, value, target, index) {
+                let name = path[index++];
+                const isNumericKey = Number.isFinite(+name);
+                const isLast = index >= path.length;
+                name = !name && utils.isArray(target) ? target.length : name;
+                if (isLast) {
+                    if (utils.hasOwnProp(target, name)) target[name] = [ target[name], value ]; else target[name] = value;
+                    return !isNumericKey;
+                }
+                if (!target[name] || !utils.isObject(target[name])) target[name] = [];
+                const result = buildPath(path, value, target[name], index);
+                if (result && utils.isArray(target[name])) target[name] = arrayToObject(target[name]);
+                return !isNumericKey;
+            }
+            if (utils.isFormData(formData) && utils.isFunction(formData.entries)) {
+                const obj = {};
+                utils.forEachEntry(formData, ((name, value) => {
+                    buildPath(parsePropPath(name), value, obj, 0);
+                }));
+                return obj;
+            }
+            return null;
+        }
+        const helpers_formDataToJSON = formDataToJSON;
+        function settle(resolve, reject, response) {
+            const validateStatus = response.config.validateStatus;
+            if (!response.status || !validateStatus || validateStatus(response.status)) resolve(response); else reject(new core_AxiosError("Request failed with status code " + response.status, [ core_AxiosError.ERR_BAD_REQUEST, core_AxiosError.ERR_BAD_RESPONSE ][Math.floor(response.status / 100) - 4], response.config, response.request, response));
+        }
+        const cookies = platform_browser.isStandardBrowserEnv ? function standardBrowserEnv() {
+            return {
+                write: function write(name, value, expires, path, domain, secure) {
+                    const cookie = [];
+                    cookie.push(name + "=" + encodeURIComponent(value));
+                    if (utils.isNumber(expires)) cookie.push("expires=" + new Date(expires).toGMTString());
+                    if (utils.isString(path)) cookie.push("path=" + path);
+                    if (utils.isString(domain)) cookie.push("domain=" + domain);
+                    if (true === secure) cookie.push("secure");
+                    document.cookie = cookie.join("; ");
+                },
+                read: function read(name) {
+                    const match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
+                    return match ? decodeURIComponent(match[3]) : null;
+                },
+                remove: function remove(name) {
+                    this.write(name, "", Date.now() - 864e5);
+                }
+            };
+        }() : function nonStandardBrowserEnv() {
+            return {
+                write: function write() {},
+                read: function read() {
+                    return null;
+                },
+                remove: function remove() {}
+            };
+        }();
+        function isAbsoluteURL(url) {
+            return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
+        }
+        function combineURLs(baseURL, relativeURL) {
+            return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
+        }
+        function buildFullPath(baseURL, requestedURL) {
+            if (baseURL && !isAbsoluteURL(requestedURL)) return combineURLs(baseURL, requestedURL);
+            return requestedURL;
+        }
+        const isURLSameOrigin = platform_browser.isStandardBrowserEnv ? function standardBrowserEnv() {
+            const msie = /(msie|trident)/i.test(navigator.userAgent);
+            const urlParsingNode = document.createElement("a");
+            let originURL;
+            function resolveURL(url) {
+                let href = url;
+                if (msie) {
+                    urlParsingNode.setAttribute("href", href);
+                    href = urlParsingNode.href;
+                }
+                urlParsingNode.setAttribute("href", href);
+                return {
+                    href: urlParsingNode.href,
+                    protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, "") : "",
+                    host: urlParsingNode.host,
+                    search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, "") : "",
+                    hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, "") : "",
+                    hostname: urlParsingNode.hostname,
+                    port: urlParsingNode.port,
+                    pathname: "/" === urlParsingNode.pathname.charAt(0) ? urlParsingNode.pathname : "/" + urlParsingNode.pathname
+                };
+            }
+            originURL = resolveURL(window.location.href);
+            return function isURLSameOrigin(requestURL) {
+                const parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
+                return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
+            };
+        }() : function nonStandardBrowserEnv() {
+            return function isURLSameOrigin() {
+                return true;
+            };
+        }();
+        function CanceledError(message, config, request) {
+            core_AxiosError.call(this, null == message ? "canceled" : message, core_AxiosError.ERR_CANCELED, config, request);
+            this.name = "CanceledError";
+        }
+        utils.inherits(CanceledError, core_AxiosError, {
+            __CANCEL__: true
+        });
+        const cancel_CanceledError = CanceledError;
+        function parseProtocol(url) {
+            const match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
+            return match && match[1] || "";
+        }
+        const ignoreDuplicateOf = utils.toObjectSet([ "age", "authorization", "content-length", "content-type", "etag", "expires", "from", "host", "if-modified-since", "if-unmodified-since", "last-modified", "location", "max-forwards", "proxy-authorization", "referer", "retry-after", "user-agent" ]);
+        const parseHeaders = rawHeaders => {
+            const parsed = {};
+            let key;
+            let val;
+            let i;
+            rawHeaders && rawHeaders.split("\n").forEach((function parser(line) {
+                i = line.indexOf(":");
+                key = line.substring(0, i).trim().toLowerCase();
+                val = line.substring(i + 1).trim();
+                if (!key || parsed[key] && ignoreDuplicateOf[key]) return;
+                if ("set-cookie" === key) if (parsed[key]) parsed[key].push(val); else parsed[key] = [ val ]; else parsed[key] = parsed[key] ? parsed[key] + ", " + val : val;
+            }));
+            return parsed;
+        };
+        const $internals = Symbol("internals");
+        const $defaults = Symbol("defaults");
+        function normalizeHeader(header) {
+            return header && String(header).trim().toLowerCase();
+        }
+        function normalizeValue(value) {
+            if (false === value || null == value) return value;
+            return utils.isArray(value) ? value.map(normalizeValue) : String(value);
+        }
+        function parseTokens(str) {
+            const tokens = Object.create(null);
+            const tokensRE = /([^\s,;=]+)\s*(?:=\s*([^,;]+))?/g;
+            let match;
+            while (match = tokensRE.exec(str)) tokens[match[1]] = match[2];
+            return tokens;
+        }
+        function matchHeaderValue(context, value, header, filter) {
+            if (utils.isFunction(filter)) return filter.call(this, value, header);
+            if (!utils.isString(value)) return;
+            if (utils.isString(filter)) return -1 !== value.indexOf(filter);
+            if (utils.isRegExp(filter)) return filter.test(value);
+        }
+        function formatHeader(header) {
+            return header.trim().toLowerCase().replace(/([a-z\d])(\w*)/g, ((w, char, str) => char.toUpperCase() + str));
+        }
+        function buildAccessors(obj, header) {
+            const accessorName = utils.toCamelCase(" " + header);
+            [ "get", "set", "has" ].forEach((methodName => {
+                Object.defineProperty(obj, methodName + accessorName, {
+                    value: function(arg1, arg2, arg3) {
+                        return this[methodName].call(this, header, arg1, arg2, arg3);
+                    },
+                    configurable: true
+                });
+            }));
+        }
+        function findKey(obj, key) {
+            key = key.toLowerCase();
+            const keys = Object.keys(obj);
+            let i = keys.length;
+            let _key;
+            while (i-- > 0) {
+                _key = keys[i];
+                if (key === _key.toLowerCase()) return _key;
+            }
+            return null;
+        }
+        function AxiosHeaders(headers, defaults) {
+            headers && this.set(headers);
+            this[$defaults] = defaults || null;
+        }
+        Object.assign(AxiosHeaders.prototype, {
+            set: function(header, valueOrRewrite, rewrite) {
+                const self = this;
+                function setHeader(_value, _header, _rewrite) {
+                    const lHeader = normalizeHeader(_header);
+                    if (!lHeader) throw new Error("header name must be a non-empty string");
+                    const key = findKey(self, lHeader);
+                    if (key && true !== _rewrite && (false === self[key] || false === _rewrite)) return;
+                    self[key || _header] = normalizeValue(_value);
+                }
+                if (utils.isPlainObject(header)) utils.forEach(header, ((_value, _header) => {
+                    setHeader(_value, _header, valueOrRewrite);
+                })); else setHeader(valueOrRewrite, header, rewrite);
+                return this;
+            },
+            get: function(header, parser) {
+                header = normalizeHeader(header);
+                if (!header) return;
+                const key = findKey(this, header);
+                if (key) {
+                    const value = this[key];
+                    if (!parser) return value;
+                    if (true === parser) return parseTokens(value);
+                    if (utils.isFunction(parser)) return parser.call(this, value, key);
+                    if (utils.isRegExp(parser)) return parser.exec(value);
+                    throw new TypeError("parser must be boolean|regexp|function");
+                }
+            },
+            has: function(header, matcher) {
+                header = normalizeHeader(header);
+                if (header) {
+                    const key = findKey(this, header);
+                    return !!(key && (!matcher || matchHeaderValue(this, this[key], key, matcher)));
+                }
+                return false;
+            },
+            delete: function(header, matcher) {
+                const self = this;
+                let deleted = false;
+                function deleteHeader(_header) {
+                    _header = normalizeHeader(_header);
+                    if (_header) {
+                        const key = findKey(self, _header);
+                        if (key && (!matcher || matchHeaderValue(self, self[key], key, matcher))) {
+                            delete self[key];
+                            deleted = true;
+                        }
+                    }
+                }
+                if (utils.isArray(header)) header.forEach(deleteHeader); else deleteHeader(header);
+                return deleted;
+            },
+            clear: function() {
+                return Object.keys(this).forEach(this.delete.bind(this));
+            },
+            normalize: function(format) {
+                const self = this;
+                const headers = {};
+                utils.forEach(this, ((value, header) => {
+                    const key = findKey(headers, header);
+                    if (key) {
+                        self[key] = normalizeValue(value);
+                        delete self[header];
+                        return;
+                    }
+                    const normalized = format ? formatHeader(header) : String(header).trim();
+                    if (normalized !== header) delete self[header];
+                    self[normalized] = normalizeValue(value);
+                    headers[normalized] = true;
+                }));
+                return this;
+            },
+            toJSON: function(asStrings) {
+                const obj = Object.create(null);
+                utils.forEach(Object.assign({}, this[$defaults] || null, this), ((value, header) => {
+                    if (null == value || false === value) return;
+                    obj[header] = asStrings && utils.isArray(value) ? value.join(", ") : value;
+                }));
+                return obj;
+            }
+        });
+        Object.assign(AxiosHeaders, {
+            from: function(thing) {
+                if (utils.isString(thing)) return new this(parseHeaders(thing));
+                return thing instanceof this ? thing : new this(thing);
+            },
+            accessor: function(header) {
+                const internals = this[$internals] = this[$internals] = {
+                    accessors: {}
+                };
+                const accessors = internals.accessors;
+                const prototype = this.prototype;
+                function defineAccessor(_header) {
+                    const lHeader = normalizeHeader(_header);
+                    if (!accessors[lHeader]) {
+                        buildAccessors(prototype, _header);
+                        accessors[lHeader] = true;
+                    }
+                }
+                utils.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
+                return this;
+            }
+        });
+        AxiosHeaders.accessor([ "Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent" ]);
+        utils.freezeMethods(AxiosHeaders.prototype);
+        utils.freezeMethods(AxiosHeaders);
+        const core_AxiosHeaders = AxiosHeaders;
+        function speedometer(samplesCount, min) {
+            samplesCount = samplesCount || 10;
+            const bytes = new Array(samplesCount);
+            const timestamps = new Array(samplesCount);
+            let head = 0;
+            let tail = 0;
+            let firstSampleTS;
+            min = void 0 !== min ? min : 1e3;
+            return function push(chunkLength) {
+                const now = Date.now();
+                const startedAt = timestamps[tail];
+                if (!firstSampleTS) firstSampleTS = now;
+                bytes[head] = chunkLength;
+                timestamps[head] = now;
+                let i = tail;
+                let bytesCount = 0;
+                while (i !== head) {
+                    bytesCount += bytes[i++];
+                    i %= samplesCount;
+                }
+                head = (head + 1) % samplesCount;
+                if (head === tail) tail = (tail + 1) % samplesCount;
+                if (now - firstSampleTS < min) return;
+                const passed = startedAt && now - startedAt;
+                return passed ? Math.round(1e3 * bytesCount / passed) : void 0;
+            };
+        }
+        const helpers_speedometer = speedometer;
+        function progressEventReducer(listener, isDownloadStream) {
+            let bytesNotified = 0;
+            const _speedometer = helpers_speedometer(50, 250);
+            return e => {
+                const loaded = e.loaded;
+                const total = e.lengthComputable ? e.total : void 0;
+                const progressBytes = loaded - bytesNotified;
+                const rate = _speedometer(progressBytes);
+                const inRange = loaded <= total;
+                bytesNotified = loaded;
+                const data = {
+                    loaded,
+                    total,
+                    progress: total ? loaded / total : void 0,
+                    bytes: progressBytes,
+                    rate: rate ? rate : void 0,
+                    estimated: rate && total && inRange ? (total - loaded) / rate : void 0
+                };
+                data[isDownloadStream ? "download" : "upload"] = true;
+                listener(data);
+            };
+        }
+        function xhrAdapter(config) {
+            return new Promise((function dispatchXhrRequest(resolve, reject) {
+                let requestData = config.data;
+                const requestHeaders = core_AxiosHeaders.from(config.headers).normalize();
+                const responseType = config.responseType;
+                let onCanceled;
+                function done() {
+                    if (config.cancelToken) config.cancelToken.unsubscribe(onCanceled);
+                    if (config.signal) config.signal.removeEventListener("abort", onCanceled);
+                }
+                if (utils.isFormData(requestData) && platform_browser.isStandardBrowserEnv) requestHeaders.setContentType(false);
+                let request = new XMLHttpRequest;
+                if (config.auth) {
+                    const username = config.auth.username || "";
+                    const password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : "";
+                    requestHeaders.set("Authorization", "Basic " + btoa(username + ":" + password));
+                }
+                const fullPath = buildFullPath(config.baseURL, config.url);
+                request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
+                request.timeout = config.timeout;
+                function onloadend() {
+                    if (!request) return;
+                    const responseHeaders = core_AxiosHeaders.from("getAllResponseHeaders" in request && request.getAllResponseHeaders());
+                    const responseData = !responseType || "text" === responseType || "json" === responseType ? request.responseText : request.response;
+                    const response = {
+                        data: responseData,
+                        status: request.status,
+                        statusText: request.statusText,
+                        headers: responseHeaders,
+                        config,
+                        request
+                    };
+                    settle((function _resolve(value) {
+                        resolve(value);
+                        done();
+                    }), (function _reject(err) {
+                        reject(err);
+                        done();
+                    }), response);
+                    request = null;
+                }
+                if ("onloadend" in request) request.onloadend = onloadend; else request.onreadystatechange = function handleLoad() {
+                    if (!request || 4 !== request.readyState) return;
+                    if (0 === request.status && !(request.responseURL && 0 === request.responseURL.indexOf("file:"))) return;
+                    setTimeout(onloadend);
+                };
+                request.onabort = function handleAbort() {
+                    if (!request) return;
+                    reject(new core_AxiosError("Request aborted", core_AxiosError.ECONNABORTED, config, request));
+                    request = null;
+                };
+                request.onerror = function handleError() {
+                    reject(new core_AxiosError("Network Error", core_AxiosError.ERR_NETWORK, config, request));
+                    request = null;
+                };
+                request.ontimeout = function handleTimeout() {
+                    let timeoutErrorMessage = config.timeout ? "timeout of " + config.timeout + "ms exceeded" : "timeout exceeded";
+                    const transitional = config.transitional || defaults_transitional;
+                    if (config.timeoutErrorMessage) timeoutErrorMessage = config.timeoutErrorMessage;
+                    reject(new core_AxiosError(timeoutErrorMessage, transitional.clarifyTimeoutError ? core_AxiosError.ETIMEDOUT : core_AxiosError.ECONNABORTED, config, request));
+                    request = null;
+                };
+                if (platform_browser.isStandardBrowserEnv) {
+                    const xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
+                    if (xsrfValue) requestHeaders.set(config.xsrfHeaderName, xsrfValue);
+                }
+                void 0 === requestData && requestHeaders.setContentType(null);
+                if ("setRequestHeader" in request) utils.forEach(requestHeaders.toJSON(), (function setRequestHeader(val, key) {
+                    request.setRequestHeader(key, val);
+                }));
+                if (!utils.isUndefined(config.withCredentials)) request.withCredentials = !!config.withCredentials;
+                if (responseType && "json" !== responseType) request.responseType = config.responseType;
+                if ("function" === typeof config.onDownloadProgress) request.addEventListener("progress", progressEventReducer(config.onDownloadProgress, true));
+                if ("function" === typeof config.onUploadProgress && request.upload) request.upload.addEventListener("progress", progressEventReducer(config.onUploadProgress));
+                if (config.cancelToken || config.signal) {
+                    onCanceled = cancel => {
+                        if (!request) return;
+                        reject(!cancel || cancel.type ? new cancel_CanceledError(null, config, request) : cancel);
+                        request.abort();
+                        request = null;
+                    };
+                    config.cancelToken && config.cancelToken.subscribe(onCanceled);
+                    if (config.signal) config.signal.aborted ? onCanceled() : config.signal.addEventListener("abort", onCanceled);
+                }
+                const protocol = parseProtocol(fullPath);
+                if (protocol && -1 === platform_browser.protocols.indexOf(protocol)) {
+                    reject(new core_AxiosError("Unsupported protocol " + protocol + ":", core_AxiosError.ERR_BAD_REQUEST, config));
+                    return;
+                }
+                request.send(requestData || null);
+            }));
+        }
+        const adapters = {
+            http: xhrAdapter,
+            xhr: xhrAdapter
+        };
+        const lib_adapters = {
+            getAdapter: nameOrAdapter => {
+                if (utils.isString(nameOrAdapter)) {
+                    const adapter = adapters[nameOrAdapter];
+                    if (!nameOrAdapter) throw Error(utils.hasOwnProp(nameOrAdapter) ? `Adapter '${nameOrAdapter}' is not available in the build` : `Can not resolve adapter '${nameOrAdapter}'`);
+                    return adapter;
+                }
+                if (!utils.isFunction(nameOrAdapter)) throw new TypeError("adapter is not a function");
+                return nameOrAdapter;
+            },
+            adapters
+        };
+        const DEFAULT_CONTENT_TYPE = {
+            "Content-Type": "application/x-www-form-urlencoded"
+        };
+        function getDefaultAdapter() {
+            let adapter;
+            if ("undefined" !== typeof XMLHttpRequest) adapter = lib_adapters.getAdapter("xhr"); else if ("undefined" !== typeof process && "process" === utils.kindOf(process)) adapter = lib_adapters.getAdapter("http");
+            return adapter;
+        }
+        function stringifySafely(rawValue, parser, encoder) {
+            if (utils.isString(rawValue)) try {
+                (parser || JSON.parse)(rawValue);
+                return utils.trim(rawValue);
+            } catch (e) {
+                if ("SyntaxError" !== e.name) throw e;
+            }
+            return (encoder || JSON.stringify)(rawValue);
+        }
+        const defaults_defaults = {
+            transitional: defaults_transitional,
+            adapter: getDefaultAdapter(),
+            transformRequest: [ function transformRequest(data, headers) {
+                const contentType = headers.getContentType() || "";
+                const hasJSONContentType = contentType.indexOf("application/json") > -1;
+                const isObjectPayload = utils.isObject(data);
+                if (isObjectPayload && utils.isHTMLForm(data)) data = new FormData(data);
+                const isFormData = utils.isFormData(data);
+                if (isFormData) {
+                    if (!hasJSONContentType) return data;
+                    return hasJSONContentType ? JSON.stringify(helpers_formDataToJSON(data)) : data;
+                }
+                if (utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) return data;
+                if (utils.isArrayBufferView(data)) return data.buffer;
+                if (utils.isURLSearchParams(data)) {
+                    headers.setContentType("application/x-www-form-urlencoded;charset=utf-8", false);
+                    return data.toString();
+                }
+                let isFileList;
+                if (isObjectPayload) {
+                    if (contentType.indexOf("application/x-www-form-urlencoded") > -1) return toURLEncodedForm(data, this.formSerializer).toString();
+                    if ((isFileList = utils.isFileList(data)) || contentType.indexOf("multipart/form-data") > -1) {
+                        const _FormData = this.env && this.env.FormData;
+                        return helpers_toFormData(isFileList ? {
+                            "files[]": data
+                        } : data, _FormData && new _FormData, this.formSerializer);
+                    }
+                }
+                if (isObjectPayload || hasJSONContentType) {
+                    headers.setContentType("application/json", false);
+                    return stringifySafely(data);
+                }
+                return data;
+            } ],
+            transformResponse: [ function transformResponse(data) {
+                const transitional = this.transitional || defaults_defaults.transitional;
+                const forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+                const JSONRequested = "json" === this.responseType;
+                if (data && utils.isString(data) && (forcedJSONParsing && !this.responseType || JSONRequested)) {
+                    const silentJSONParsing = transitional && transitional.silentJSONParsing;
+                    const strictJSONParsing = !silentJSONParsing && JSONRequested;
+                    try {
+                        return JSON.parse(data);
+                    } catch (e) {
+                        if (strictJSONParsing) {
+                            if ("SyntaxError" === e.name) throw core_AxiosError.from(e, core_AxiosError.ERR_BAD_RESPONSE, this, null, this.response);
+                            throw e;
+                        }
+                    }
+                }
+                return data;
+            } ],
+            timeout: 0,
+            xsrfCookieName: "XSRF-TOKEN",
+            xsrfHeaderName: "X-XSRF-TOKEN",
+            maxContentLength: -1,
+            maxBodyLength: -1,
+            env: {
+                FormData: platform_browser.classes.FormData,
+                Blob: platform_browser.classes.Blob
+            },
+            validateStatus: function validateStatus(status) {
+                return status >= 200 && status < 300;
+            },
+            headers: {
+                common: {
+                    Accept: "application/json, text/plain, */*"
+                }
+            }
+        };
+        utils.forEach([ "delete", "get", "head" ], (function forEachMethodNoData(method) {
+            defaults_defaults.headers[method] = {};
+        }));
+        utils.forEach([ "post", "put", "patch" ], (function forEachMethodWithData(method) {
+            defaults_defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+        }));
+        const lib_defaults = defaults_defaults;
+        function transformData(fns, response) {
+            const config = this || lib_defaults;
+            const context = response || config;
+            const headers = core_AxiosHeaders.from(context.headers);
+            let data = context.data;
+            utils.forEach(fns, (function transform(fn) {
+                data = fn.call(config, data, headers.normalize(), response ? response.status : void 0);
+            }));
+            headers.normalize();
+            return data;
+        }
+        function isCancel(value) {
+            return !!(value && value.__CANCEL__);
+        }
+        function throwIfCancellationRequested(config) {
+            if (config.cancelToken) config.cancelToken.throwIfRequested();
+            if (config.signal && config.signal.aborted) throw new cancel_CanceledError;
+        }
+        function dispatchRequest(config) {
+            throwIfCancellationRequested(config);
+            config.headers = core_AxiosHeaders.from(config.headers);
+            config.data = transformData.call(config, config.transformRequest);
+            const adapter = config.adapter || lib_defaults.adapter;
+            return adapter(config).then((function onAdapterResolution(response) {
+                throwIfCancellationRequested(config);
+                response.data = transformData.call(config, config.transformResponse, response);
+                response.headers = core_AxiosHeaders.from(response.headers);
+                return response;
+            }), (function onAdapterRejection(reason) {
+                if (!isCancel(reason)) {
+                    throwIfCancellationRequested(config);
+                    if (reason && reason.response) {
+                        reason.response.data = transformData.call(config, config.transformResponse, reason.response);
+                        reason.response.headers = core_AxiosHeaders.from(reason.response.headers);
+                    }
+                }
+                return Promise.reject(reason);
+            }));
+        }
+        function mergeConfig(config1, config2) {
+            config2 = config2 || {};
+            const config = {};
+            function getMergedValue(target, source) {
+                if (utils.isPlainObject(target) && utils.isPlainObject(source)) return utils.merge(target, source); else if (utils.isPlainObject(source)) return utils.merge({}, source); else if (utils.isArray(source)) return source.slice();
+                return source;
+            }
+            function mergeDeepProperties(prop) {
+                if (!utils.isUndefined(config2[prop])) return getMergedValue(config1[prop], config2[prop]); else if (!utils.isUndefined(config1[prop])) return getMergedValue(void 0, config1[prop]);
+            }
+            function valueFromConfig2(prop) {
+                if (!utils.isUndefined(config2[prop])) return getMergedValue(void 0, config2[prop]);
+            }
+            function defaultToConfig2(prop) {
+                if (!utils.isUndefined(config2[prop])) return getMergedValue(void 0, config2[prop]); else if (!utils.isUndefined(config1[prop])) return getMergedValue(void 0, config1[prop]);
+            }
+            function mergeDirectKeys(prop) {
+                if (prop in config2) return getMergedValue(config1[prop], config2[prop]); else if (prop in config1) return getMergedValue(void 0, config1[prop]);
+            }
+            const mergeMap = {
+                url: valueFromConfig2,
+                method: valueFromConfig2,
+                data: valueFromConfig2,
+                baseURL: defaultToConfig2,
+                transformRequest: defaultToConfig2,
+                transformResponse: defaultToConfig2,
+                paramsSerializer: defaultToConfig2,
+                timeout: defaultToConfig2,
+                timeoutMessage: defaultToConfig2,
+                withCredentials: defaultToConfig2,
+                adapter: defaultToConfig2,
+                responseType: defaultToConfig2,
+                xsrfCookieName: defaultToConfig2,
+                xsrfHeaderName: defaultToConfig2,
+                onUploadProgress: defaultToConfig2,
+                onDownloadProgress: defaultToConfig2,
+                decompress: defaultToConfig2,
+                maxContentLength: defaultToConfig2,
+                maxBodyLength: defaultToConfig2,
+                beforeRedirect: defaultToConfig2,
+                transport: defaultToConfig2,
+                httpAgent: defaultToConfig2,
+                httpsAgent: defaultToConfig2,
+                cancelToken: defaultToConfig2,
+                socketPath: defaultToConfig2,
+                responseEncoding: defaultToConfig2,
+                validateStatus: mergeDirectKeys
+            };
+            utils.forEach(Object.keys(config1).concat(Object.keys(config2)), (function computeConfigValue(prop) {
+                const merge = mergeMap[prop] || mergeDeepProperties;
+                const configValue = merge(prop);
+                utils.isUndefined(configValue) && merge !== mergeDirectKeys || (config[prop] = configValue);
+            }));
+            return config;
+        }
+        const VERSION = "1.1.3";
+        const validators = {};
+        [ "object", "boolean", "number", "function", "string", "symbol" ].forEach(((type, i) => {
+            validators[type] = function validator(thing) {
+                return typeof thing === type || "a" + (i < 1 ? "n " : " ") + type;
+            };
+        }));
+        const deprecatedWarnings = {};
+        validators.transitional = function transitional(validator, version, message) {
+            function formatMessage(opt, desc) {
+                return "[Axios v" + VERSION + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
+            }
+            return (value, opt, opts) => {
+                if (false === validator) throw new core_AxiosError(formatMessage(opt, " has been removed" + (version ? " in " + version : "")), core_AxiosError.ERR_DEPRECATED);
+                if (version && !deprecatedWarnings[opt]) {
+                    deprecatedWarnings[opt] = true;
+                    console.warn(formatMessage(opt, " has been deprecated since v" + version + " and will be removed in the near future"));
+                }
+                return validator ? validator(value, opt, opts) : true;
+            };
+        };
+        function assertOptions(options, schema, allowUnknown) {
+            if ("object" !== typeof options) throw new core_AxiosError("options must be an object", core_AxiosError.ERR_BAD_OPTION_VALUE);
+            const keys = Object.keys(options);
+            let i = keys.length;
+            while (i-- > 0) {
+                const opt = keys[i];
+                const validator = schema[opt];
+                if (validator) {
+                    const value = options[opt];
+                    const result = void 0 === value || validator(value, opt, options);
+                    if (true !== result) throw new core_AxiosError("option " + opt + " must be " + result, core_AxiosError.ERR_BAD_OPTION_VALUE);
+                    continue;
+                }
+                if (true !== allowUnknown) throw new core_AxiosError("Unknown option " + opt, core_AxiosError.ERR_BAD_OPTION);
+            }
+        }
+        const validator = {
+            assertOptions,
+            validators
+        };
+        const Axios_validators = validator.validators;
+        class Axios {
+            constructor(instanceConfig) {
+                this.defaults = instanceConfig;
+                this.interceptors = {
+                    request: new core_InterceptorManager,
+                    response: new core_InterceptorManager
+                };
+            }
+            request(configOrUrl, config) {
+                if ("string" === typeof configOrUrl) {
+                    config = config || {};
+                    config.url = configOrUrl;
+                } else config = configOrUrl || {};
+                config = mergeConfig(this.defaults, config);
+                const {transitional, paramsSerializer} = config;
+                if (void 0 !== transitional) validator.assertOptions(transitional, {
+                    silentJSONParsing: Axios_validators.transitional(Axios_validators.boolean),
+                    forcedJSONParsing: Axios_validators.transitional(Axios_validators.boolean),
+                    clarifyTimeoutError: Axios_validators.transitional(Axios_validators.boolean)
+                }, false);
+                if (void 0 !== paramsSerializer) validator.assertOptions(paramsSerializer, {
+                    encode: Axios_validators.function,
+                    serialize: Axios_validators.function
+                }, true);
+                config.method = (config.method || this.defaults.method || "get").toLowerCase();
+                const defaultHeaders = config.headers && utils.merge(config.headers.common, config.headers[config.method]);
+                defaultHeaders && utils.forEach([ "delete", "get", "head", "post", "put", "patch", "common" ], (function cleanHeaderConfig(method) {
+                    delete config.headers[method];
+                }));
+                config.headers = new core_AxiosHeaders(config.headers, defaultHeaders);
+                const requestInterceptorChain = [];
+                let synchronousRequestInterceptors = true;
+                this.interceptors.request.forEach((function unshiftRequestInterceptors(interceptor) {
+                    if ("function" === typeof interceptor.runWhen && false === interceptor.runWhen(config)) return;
+                    synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+                    requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+                }));
+                const responseInterceptorChain = [];
+                this.interceptors.response.forEach((function pushResponseInterceptors(interceptor) {
+                    responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
+                }));
+                let promise;
+                let i = 0;
+                let len;
+                if (!synchronousRequestInterceptors) {
+                    const chain = [ dispatchRequest.bind(this), void 0 ];
+                    chain.unshift.apply(chain, requestInterceptorChain);
+                    chain.push.apply(chain, responseInterceptorChain);
+                    len = chain.length;
+                    promise = Promise.resolve(config);
+                    while (i < len) promise = promise.then(chain[i++], chain[i++]);
+                    return promise;
+                }
+                len = requestInterceptorChain.length;
+                let newConfig = config;
+                i = 0;
+                while (i < len) {
+                    const onFulfilled = requestInterceptorChain[i++];
+                    const onRejected = requestInterceptorChain[i++];
+                    try {
+                        newConfig = onFulfilled(newConfig);
+                    } catch (error) {
+                        onRejected.call(this, error);
+                        break;
+                    }
+                }
+                try {
+                    promise = dispatchRequest.call(this, newConfig);
+                } catch (error) {
+                    return Promise.reject(error);
+                }
+                i = 0;
+                len = responseInterceptorChain.length;
+                while (i < len) promise = promise.then(responseInterceptorChain[i++], responseInterceptorChain[i++]);
+                return promise;
+            }
+            getUri(config) {
+                config = mergeConfig(this.defaults, config);
+                const fullPath = buildFullPath(config.baseURL, config.url);
+                return buildURL(fullPath, config.params, config.paramsSerializer);
+            }
+        }
+        utils.forEach([ "delete", "get", "head", "options" ], (function forEachMethodNoData(method) {
+            Axios.prototype[method] = function(url, config) {
+                return this.request(mergeConfig(config || {}, {
+                    method,
+                    url,
+                    data: (config || {}).data
+                }));
+            };
+        }));
+        utils.forEach([ "post", "put", "patch" ], (function forEachMethodWithData(method) {
+            function generateHTTPMethod(isForm) {
+                return function httpMethod(url, data, config) {
+                    return this.request(mergeConfig(config || {}, {
+                        method,
+                        headers: isForm ? {
+                            "Content-Type": "multipart/form-data"
+                        } : {},
+                        url,
+                        data
+                    }));
+                };
+            }
+            Axios.prototype[method] = generateHTTPMethod();
+            Axios.prototype[method + "Form"] = generateHTTPMethod(true);
+        }));
+        const core_Axios = Axios;
+        class CancelToken {
+            constructor(executor) {
+                if ("function" !== typeof executor) throw new TypeError("executor must be a function.");
+                let resolvePromise;
+                this.promise = new Promise((function promiseExecutor(resolve) {
+                    resolvePromise = resolve;
+                }));
+                const token = this;
+                this.promise.then((cancel => {
+                    if (!token._listeners) return;
+                    let i = token._listeners.length;
+                    while (i-- > 0) token._listeners[i](cancel);
+                    token._listeners = null;
+                }));
+                this.promise.then = onfulfilled => {
+                    let _resolve;
+                    const promise = new Promise((resolve => {
+                        token.subscribe(resolve);
+                        _resolve = resolve;
+                    })).then(onfulfilled);
+                    promise.cancel = function reject() {
+                        token.unsubscribe(_resolve);
+                    };
+                    return promise;
+                };
+                executor((function cancel(message, config, request) {
+                    if (token.reason) return;
+                    token.reason = new cancel_CanceledError(message, config, request);
+                    resolvePromise(token.reason);
+                }));
+            }
+            throwIfRequested() {
+                if (this.reason) throw this.reason;
+            }
+            subscribe(listener) {
+                if (this.reason) {
+                    listener(this.reason);
+                    return;
+                }
+                if (this._listeners) this._listeners.push(listener); else this._listeners = [ listener ];
+            }
+            unsubscribe(listener) {
+                if (!this._listeners) return;
+                const index = this._listeners.indexOf(listener);
+                if (-1 !== index) this._listeners.splice(index, 1);
+            }
+            static source() {
+                let cancel;
+                const token = new CancelToken((function executor(c) {
+                    cancel = c;
+                }));
+                return {
+                    token,
+                    cancel
+                };
+            }
+        }
+        const cancel_CancelToken = CancelToken;
+        function spread(callback) {
+            return function wrap(arr) {
+                return callback.apply(null, arr);
+            };
+        }
+        function isAxiosError(payload) {
+            return utils.isObject(payload) && true === payload.isAxiosError;
+        }
+        function createInstance(defaultConfig) {
+            const context = new core_Axios(defaultConfig);
+            const instance = bind(core_Axios.prototype.request, context);
+            utils.extend(instance, core_Axios.prototype, context, {
+                allOwnKeys: true
+            });
+            utils.extend(instance, context, null, {
+                allOwnKeys: true
+            });
+            instance.create = function create(instanceConfig) {
+                return createInstance(mergeConfig(defaultConfig, instanceConfig));
+            };
+            return instance;
+        }
+        const axios = createInstance(lib_defaults);
+        axios.Axios = core_Axios;
+        axios.CanceledError = cancel_CanceledError;
+        axios.CancelToken = cancel_CancelToken;
+        axios.isCancel = isCancel;
+        axios.VERSION = VERSION;
+        axios.toFormData = helpers_toFormData;
+        axios.AxiosError = core_AxiosError;
+        axios.Cancel = axios.CanceledError;
+        axios.all = function all(promises) {
+            return Promise.all(promises);
+        };
+        axios.spread = spread;
+        axios.isAxiosError = isAxiosError;
+        axios.formToJSON = thing => helpers_formDataToJSON(utils.isHTMLForm(thing) ? new FormData(thing) : thing);
+        const lib_axios = axios;
+        const {Axios: axios_Axios, AxiosError: axios_AxiosError, CanceledError: axios_CanceledError, isCancel: axios_isCancel, CancelToken: axios_CancelToken, VERSION: axios_VERSION, all: axios_all, Cancel, isAxiosError: axios_isAxiosError, spread: axios_spread, toFormData: axios_toFormData} = lib_axios;
+        const node_modules_axios = lib_axios;
         aos.init();
+        const certificateForm = document.querySelector("#certificate-form");
+        if (certificateForm) {
+            const validation = new JustValidate(certificateForm, {
+                tooltip: {
+                    position: "bottom"
+                }
+            });
+            const sendData = form => {
+                const elems = form.querySelectorAll(".form-certificate__input");
+                let info = {};
+                elems.forEach((input => {
+                    info[input.name] = input.value;
+                }));
+                console.log(info);
+                let msg = `\n\t\t\t${form.classList.contains("certificate") ? "новая ЗАЯВКА НА СЕРТИФИКАТ" : "новая ЗАПИСЬ НА СЪЁМКУ"}%0A\n\t\t\tИмя: ${info.name}%0A\n\t\t\tТелефон: ${info.tel}%0A\n\t\t\tПочта: ${info.email}%0A\n\t\t\tСообщение: ${info.message}\n\t\t`;
+                node_modules_axios({
+                    method: "post",
+                    url: `https://api.telegram.org/bot5632010278:AAHMXClIxpt7TrVjsZrECfuI99wEObLpGbE/sendMessage?chat_id=-1001782421566&parse_mode=html&text=${msg}`,
+                    data: {
+                        firstName: "Fred",
+                        lastName: "Flintstone"
+                    }
+                });
+            };
+            validation.addField("#input-name", [ {
+                rule: "required",
+                errorMessage: "Пожалуйста, введите Ваше имя"
+            } ]).addField("#input-tel", [ {
+                rule: "required",
+                errorMessage: "Пожалуйста, введите Ваш номер телефона"
+            } ]).addField("#input-email", [ {
+                rule: "required",
+                errorMessage: "Пожалуйста, введите адрес почтового ящика"
+            }, {
+                rule: "email",
+                errorMessage: "Введен неккоректный адрес почтового ящика!"
+            } ]).onSuccess((() => sendData(certificateForm)));
+        }
         window.addEventListener("load", (() => {
             const mainSlider = document.querySelector(".main-slider");
             if (mainSlider) {
