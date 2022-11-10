@@ -6068,29 +6068,62 @@
         const {Axios: axios_Axios, AxiosError: axios_AxiosError, CanceledError: axios_CanceledError, isCancel: axios_isCancel, CancelToken: axios_CancelToken, VERSION: axios_VERSION, all: axios_all, Cancel, isAxiosError: axios_isAxiosError, spread: axios_spread, toFormData: axios_toFormData} = lib_axios;
         const node_modules_axios = lib_axios;
         aos.init();
+        const script_body = document.body;
         const certificateForm = document.querySelector("#certificate-form");
+        const modalBtns = document.querySelectorAll("._modal-open");
+        const modals = document.querySelectorAll("._modal");
+        function openModal(elem) {
+            elem.classList.add("_active");
+            script_body.classList.add("_locked");
+        }
+        function closeModal(e) {
+            if (e.target.classList.contains("modal-close") || e.target.closest(".modal-close") || e.target.classList.contains("modal-bg")) {
+                e.target.closest("._modal").classList.remove("_active");
+                script_body.classList.remove("_locked");
+            }
+        }
+        modalBtns.forEach((btn => {
+            btn.addEventListener("click", (e => {
+                let data = e.target.dataset.modalOpen;
+                modals.forEach((modal => {
+                    if (modal.dataset.modal == data || modal.dataset.modal == e.target.closest("._modal-open").dataset.modalOpen) openModal(modal);
+                }));
+            }));
+        }));
+        modals.forEach((modal => {
+            modal.addEventListener("click", (e => closeModal(e)));
+        }));
+        window.addEventListener("keydown", (e => {
+            modals.forEach((modal => {
+                if ("Escape" === e.key && modal.classList.contains("_active")) {
+                    modal.classList.remove("_active");
+                    script_body.classList.remove("_locked");
+                }
+            }));
+        }));
         if (certificateForm) {
             const validation = new JustValidate(certificateForm, {
                 tooltip: {
                     position: "bottom"
                 }
             });
+            const modal = document.querySelector("._modal");
             const sendData = form => {
                 const elems = form.querySelectorAll(".form-certificate__input");
                 let info = {};
                 elems.forEach((input => {
                     info[input.name] = input.value;
                 }));
-                console.log(info);
-                let msg = `\n\t\t\t${form.classList.contains("certificate") ? "новая ЗАЯВКА НА СЕРТИФИКАТ" : "новая ЗАПИСЬ НА СЪЁМКУ"}%0A\n\t\t\tИмя: ${info.name}%0A\n\t\t\tТелефон: ${info.tel}%0A\n\t\t\tПочта: ${info.email}%0A\n\t\t\tСообщение: ${info.message}\n\t\t`;
+                let title = "";
+                form.classList.contains("_certificate") ? title = "новая ЗАЯВКА НА СЕРТИФИКАТ" : title = "новая ЗАПИСЬ НА СЪЁМКУ";
+                let msg = `\n\t\t\t${title}%0A\n\t\t\tИмя: ${info.name}%0A\n\t\t\tТелефон: ${info.tel}%0A\n\t\t\tПочта: ${info.email}%0A\n\t\t\tСообщение: ${info.message}\n\t\t`;
+                const tkn = "5632010278:AAHMXClIxpt7TrVjsZrECfuI99wEObLpGbE";
                 node_modules_axios({
                     method: "post",
-                    url: `https://api.telegram.org/bot5632010278:AAHMXClIxpt7TrVjsZrECfuI99wEObLpGbE/sendMessage?chat_id=-1001782421566&parse_mode=html&text=${msg}`,
-                    data: {
-                        firstName: "Fred",
-                        lastName: "Flintstone"
-                    }
+                    url: `https://api.telegram.org/bot${tkn}/sendMessage?chat_id=-1001782421566&parse_mode=html&text=${msg}`
                 });
+                openModal(modal);
+                modal.querySelector(".modal-content").textContent = "Ваша заявка успешно отправлена!";
             };
             validation.addField("#input-name", [ {
                 rule: "required",
