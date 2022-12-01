@@ -6299,8 +6299,7 @@
                 elems.forEach((input => {
                     info[input.name] = input.value;
                 }));
-                let title = "";
-                form.classList.contains("_certificate") ? title = "новая ЗАЯВКА НА СЕРТИФИКАТ" : title = "новая ЗАПИСЬ НА СЪЁМКУ";
+                let title = document.querySelector(".certificate__title").textContent;
                 let msg = `\n\t\t\t${title}%0A\n\t\t\tИмя: ${info.name}%0A\n\t\t\tТелефон: ${info.tel}%0A\n\t\t\tПочта: ${info.email}%0A\n\t\t\tСообщение: ${info.message}\n\t\t`;
                 const tkn = "5632010278:AAHMXClIxpt7TrVjsZrECfuI99wEObLpGbE";
                 node_modules_axios({
@@ -6449,6 +6448,23 @@
             roundText.innerHTML = roundText.innerText.split("").map(((char, i) => `<span style="transform:rotate(${7.85 * i}deg)">${char}</span>`)).join("");
             console.log(roundText.innerHTML);
         }
+        const trainingSliders = document.querySelectorAll(".student__photos");
+        trainingSliders.forEach((slider => {
+            new core(slider, {
+                slidesPerView: 1.5,
+                centeredSlides: true,
+                loop: true,
+                spaceBetween: 30,
+                breakpoints: {
+                    768: {
+                        slidesPerView: 3.2
+                    },
+                    576: {
+                        slidesPerView: 2.5
+                    }
+                }
+            });
+        }));
         menuInit();
         spollersInit();
         daInit();
