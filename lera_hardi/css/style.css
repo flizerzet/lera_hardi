@@ -1642,6 +1642,46 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -3512,6 +3552,10 @@ body._locked {
   margin: 30px 0;
 }
 
+.title-training {
+  margin: 70px 0 20px;
+}
+
 .title-training__suptitle {
   text-align: center;
   font-weight: 500;
@@ -3739,6 +3783,7 @@ body._locked {
 .item-results-trainig__description {
   font-weight: 300;
   opacity: 0.75;
+  max-width: 85%;
 }
 
 @supports (font-size: clamp( 0.875rem , 0.6964285714rem  +  0.8928571429vw , 1.5rem )) {
@@ -4106,9 +4151,10 @@ body._locked {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  gap: 30px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 50px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
@@ -4125,6 +4171,12 @@ body._locked {
 			2.5rem + 3.125 * (100vw - 20rem) / 70
 		);
   }
+}
+
+.tarifs__item {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
 }
 
 .tarifs__link {
@@ -4608,6 +4660,14 @@ body._locked {
   .training__video {
     display: none;
   }
+
+  .title-training {
+    margin: 130px 0;
+  }
+
+  .title-training__name {
+    margin-bottom: 20px;
+  }
 }
 
 @media (max-width: 62em) {
@@ -4723,6 +4783,10 @@ body._locked {
 
   .item-results-trainig .item-results-trainig__img img {
     width: 100%;
+  }
+
+  .item-results-trainig__title {
+    font-weight: 400;
   }
 
   .library__item {
