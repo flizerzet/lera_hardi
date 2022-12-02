@@ -6339,9 +6339,6 @@
                             slidesPerView: 3.7
                         },
                         576: {
-                            slidesPerView: 3
-                        },
-                        425: {
                             slidesPerView: 2.5
                         }
                     }
