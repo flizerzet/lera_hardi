@@ -1722,6 +1722,46 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -3619,6 +3659,7 @@ body._locked {
 .title-training__name {
   font-weight: 700;
   text-align: center;
+  margin-top: 20px;
 }
 
 @supports (font-size: clamp( 2.5rem , -0.7142857143rem  +  16.0714285714vw , 13.75rem )) {
@@ -3642,7 +3683,7 @@ body._locked {
 }
 
 .title-training__subtitle {
-  font-family: "Fuggles";
+  font-weight: 700;
 }
 
 @supports (font-size: clamp( 3.125rem , 1.1607142857rem  +  9.8214285714vw , 10rem )) {
@@ -4780,16 +4821,25 @@ body._locked {
     max-width: 100px;
   }
 
-  .about__info {
-    margin-top: 80px;
+  .about__title {
+    margin-top: 30px;
+  }
+
+  .about__content {
+    margin-top: 30px;
+  }
+
+  .about__images img:nth-child(1) {
+    display: none;
   }
 
   .about__images img:nth-child(2) {
     display: block;
-    bottom: -50px;
-    width: 197px;
-    height: 188px;
-    left: 5%;
+    position: static;
+    height: 400px;
+    width: 100%;
+    -o-object-position: top center;
+       object-position: top center;
   }
 
   .certificate__body {
@@ -4812,6 +4862,10 @@ body._locked {
     max-width: 100%;
     margin-left: 0;
     text-align: center;
+  }
+
+  .title-training__subtitle {
+    margin-bottom: 20px;
   }
 
   .item-results-trainig .item-results-trainig__img {
