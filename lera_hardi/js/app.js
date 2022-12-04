@@ -6349,7 +6349,7 @@
                 }));
                 for (let i = 0; i < images.length; i++) {
                     const image = images[i];
-                    const time = 5e3 + 100 * i;
+                    const time = 3e3 + 100 * i;
                     setTimeout((() => {
                         image.classList.remove("_animate");
                     }), time);
@@ -6427,10 +6427,10 @@
                     preloader.style.opacity = "0";
                     preloader.style.visibility = "hidden";
                     document.body.classList.remove("_locked");
-                }), 5e3);
+                }), 3e3);
                 setTimeout((() => {
                     preloader.style.display = "none";
-                }), 6e3);
+                }), 3500);
             }));
         }
         const goUp = document.getElementById("go-up");
