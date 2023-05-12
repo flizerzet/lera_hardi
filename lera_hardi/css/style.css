@@ -1842,6 +1842,166 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FiraSansExtraCondensed;
+  font-display: swap;
+  src: url("../fonts/FiraSansExtraCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
 /*---ОБНУЛЕНИЕ---*/
 
 * {
@@ -3304,6 +3464,24 @@ body._locked {
   }
 }
 
+.price__ticker {
+  display: none;
+  background-color: #000;
+  padding: 10px 0;
+  position: absolute;
+  top: 100%;
+  left: -15px;
+  right: -15px;
+}
+
+.price__ticker .ticker__item {
+  font-size: 20px;
+  color: #fff;
+  opacity: 1;
+  padding: 2.5px;
+  text-transform: uppercase;
+}
+
 .price-certificate {
   padding: 40px 0 72px;
   background: url("../img/certificate.png") center center/cover no-repeat;
@@ -4144,6 +4322,7 @@ body._locked {
 .spollers__list li {
   padding-left: 15px;
   position: relative;
+  text-transform: lowercase;
 }
 
 @supports (font-size: clamp( 0.875rem , 0.8392857143rem  +  0.1785714286vw , 1rem )) {
@@ -4158,6 +4337,14 @@ body._locked {
 			0.875rem + 0.125 * (100vw - 20rem) / 70
 		);
   }
+}
+
+.spollers__list li::first-letter {
+  text-transform: uppercase;
+}
+
+.spollers__list li span {
+  text-transform: uppercase;
 }
 
 .spollers__list li:not(:last-child) {
@@ -4764,6 +4951,60 @@ body._locked {
   transition: all 0.2s;
 }
 
+@supports (margin-top: clamp( 0.75rem , 0.3928571429rem  +  1.7857142857vw , 2rem )) {
+  .training__offert {
+    margin-top: clamp( 0.75rem , 0.3928571429rem  +  1.7857142857vw , 2rem );
+  }
+}
+
+@supports not (margin-top: clamp( 0.75rem , 0.3928571429rem  +  1.7857142857vw , 2rem )) {
+  .training__offert {
+    margin-top: calc(
+			0.75rem + 1.25 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.training__offert a {
+  text-decoration: underline;
+}
+
+.offerta {
+  margin-bottom: 32px;
+}
+
+@supports (margin-bottom: clamp( 1rem , 0.7142857143rem  +  1.4285714286vw , 2rem )) {
+  .offerta p {
+    margin-bottom: clamp( 1rem , 0.7142857143rem  +  1.4285714286vw , 2rem );
+  }
+}
+
+@supports not (margin-bottom: clamp( 1rem , 0.7142857143rem  +  1.4285714286vw , 2rem )) {
+  .offerta p {
+    margin-bottom: calc(
+			1rem + 1 * (100vw - 20rem) / 70
+		);
+  }
+}
+
+.offerta__title {
+  margin-bottom: 32px;
+}
+
+@supports (font-size: clamp( 1.875rem , 1.5535714286rem  +  1.6071428571vw , 3rem )) {
+  .offerta__title {
+    font-size: clamp( 1.875rem , 1.5535714286rem  +  1.6071428571vw , 3rem );
+  }
+}
+
+@supports not (font-size: clamp( 1.875rem , 1.5535714286rem  +  1.6071428571vw , 3rem )) {
+  .offerta__title {
+    font-size: calc(
+			1.875rem + 1.125 * (100vw - 20rem) / 70
+		);
+  }
+}
+
 [data-aos=fade-left] {
   -webkit-transform: translate3d(100px, 0, 0);
   transform: translate3d(100px, 0, 0);
@@ -4857,6 +5098,19 @@ body._locked {
 
   .slider-locations .slider-locations__arrows {
     display: none;
+  }
+
+  .item-price:nth-child(2) {
+    padding-bottom: 30px;
+    position: relative;
+  }
+
+  .benefit {
+    display: none;
+  }
+
+  .price__ticker {
+    display: block;
   }
 
   .callback__img {
